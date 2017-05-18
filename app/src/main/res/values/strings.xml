@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PocketScheduler</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_Calendar">Calendar</string>
+    <string name="title_Project">Project</string>
+    <string name="title_Events">Events</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
