@@ -15,7 +15,6 @@
 -->
 <!-- Layout for the main screen -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,11 +22,21 @@
     android:background="@color/colorPrimary"
     tools:context = "com.example.wuqi.pocketscheduler.MainActivity">
 
+
     <include
         android:id = "@+id/id_bottombar"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:layout_alignParentBottom = "true"
-        />
+        layout = "@layout/bottom_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <FrameLayout
+        android:id = "@+id/id_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/id_bottombar">
+    </FrameLayout>
+
 
 </RelativeLayout>
