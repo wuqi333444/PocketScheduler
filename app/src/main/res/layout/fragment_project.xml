@@ -1,13 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.wuqi.pocketscheduler.ProjectFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <include
+        android:id = "@+id/id_projectbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        layout="@layout/project_bar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <FrameLayout
+        android:id="@+id/d123"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="This is project fragment" />
+        android:layout_below="@+id/id_projectbar"
+        />
 
-</FrameLayout>
+</RelativeLayout>

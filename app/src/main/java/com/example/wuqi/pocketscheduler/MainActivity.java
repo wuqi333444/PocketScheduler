@@ -3,10 +3,10 @@ package com.example.wuqi.pocketscheduler;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,14 +14,17 @@ import android.view.Window;
 import android.widget.Button;
 
 
-public class MainActivity extends AppCompatActivity implements CalendarFragment.OnFragmentInteractionListener, ProjectFragment.OnFragmentInteractionListener,EventsFragment.OnFragmentInteractionListener{
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+
+
+public class MainActivity extends AppCompatActivity implements CalendarFragment.OnFragmentInteractionListener, ProjectFragment.OnFragmentInteractionListener,EventsFragment.OnFragmentInteractionListener,ProjectCreatorFragment.OnFragmentInteractionListener,ProjectParticipatorFragment.OnFragmentInteractionListener{
     private Button mTabCalendar;
     private Button mTabProject;
     private Button mTabEvents;
-
     private CalendarFragment mCalendar;
     private ProjectFragment mProject;
     private EventsFragment mEvents;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         mTabCalendar = (Button) findViewById(R.id.Button_calendar);
         mTabProject = (Button) findViewById(R.id.Button_project);
         mTabEvents = (Button) findViewById(R.id.Button_events);
+
         mTabCalendar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View V){
                 android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
@@ -44,11 +48,11 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         }
                         // 使用当前Fragment的布局替代id_content的控件
                         transaction.replace(R.id.id_content, mCalendar);
-
                  transaction.addToBackStack(null);
                 // 事务提交
                 transaction.commit();
             }
+
         });
         mTabProject.setOnClickListener(new View.OnClickListener(){
             public void onClick(View V){
