@@ -5,9 +5,17 @@
     tools:context="com.example.wuqi.pocketscheduler.CalendarFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hi,This is calendar fragment" />
+        android:orientation="vertical">
 
+        <CalendarView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"></CalendarView>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+    </LinearLayout>
 </FrameLayout>
