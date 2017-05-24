@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 
 /**
@@ -66,7 +68,14 @@ public class ProjectParticipatorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_participator, container, false);
+        View ra = inflater.inflate(R.layout.fragment_project_participator, container, false);
+        final ArrayList<Creator> word = new ArrayList<>();
+        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016"));
+
+        ListView listView = (ListView) ra.findViewById(R.id.list_participator);
+        CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimaryDark);
+        listView.setAdapter(simpleAdapter);
+        return ra;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

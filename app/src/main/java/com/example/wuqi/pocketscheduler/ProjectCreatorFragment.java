@@ -3,12 +3,19 @@ package com.example.wuqi.pocketscheduler;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -24,6 +31,8 @@ public class ProjectCreatorFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private List projectlist;
+    private Context context;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,8 +75,19 @@ public class ProjectCreatorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_creator, container, false);
+        View ra =  inflater.inflate(R.layout.fragment_project_creator, container, false);
+        final ArrayList<Creator> word = new ArrayList<>();
+        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016"));
+        word.add(new Creator("REC","Rec Center Basketball","Begin: May 15, 2016"));
+        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 24, 2016"));
+        word.add(new Creator("FD","Fishing Day","Begin: May 30, 2016"));
+        word.add(new Creator("AB","Angel's Birthday","Begin: Jun 4, 2016"));
+        ListView listView = (ListView) ra.findViewById(R.id.list_creator);
+        CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimary);
+        listView.setAdapter(simpleAdapter);
+        return ra;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
