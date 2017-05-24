@@ -1,6 +1,7 @@
 package com.example.wuqi.pocketscheduler;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -83,8 +85,16 @@ public class ProjectCreatorFragment extends Fragment {
         word.add(new Creator("FD","Fishing Day","Begin: May 30, 2016"));
         word.add(new Creator("AB","Angel's Birthday","Begin: Jun 4, 2016"));
         ListView listView = (ListView) ra.findViewById(R.id.list_creator);
-        CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimary);
+        final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimary);
         listView.setAdapter(simpleAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView adapterView,View view,int position,long l){
+                Creator ra1 = (Creator) simpleAdapter.getItem(position);
+                Intent info = new Intent(getActivity(),Project_part2.class);
+                startActivity(info);
+            }
+        });
         return ra;
     }
 

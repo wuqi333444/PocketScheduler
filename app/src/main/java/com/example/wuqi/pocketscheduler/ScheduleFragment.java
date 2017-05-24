@@ -1,29 +1,23 @@
 package com.example.wuqi.pocketscheduler;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ProjectParticipatorFragment.OnFragmentInteractionListener} interface
+ * {@link ScheduleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ProjectParticipatorFragment#newInstance} factory method to
+ * Use the {@link ScheduleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectParticipatorFragment extends Fragment {
+public class ScheduleFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,7 +29,7 @@ public class ProjectParticipatorFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ProjectParticipatorFragment() {
+    public ScheduleFragment() {
         // Required empty public constructor
     }
 
@@ -45,11 +39,11 @@ public class ProjectParticipatorFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProjectParticipatorFragment.
+     * @return A new instance of fragment ScheduleFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProjectParticipatorFragment newInstance(String param1, String param2) {
-        ProjectParticipatorFragment fragment = new ProjectParticipatorFragment();
+    public static ScheduleFragment newInstance(String param1, String param2) {
+        ScheduleFragment fragment = new ScheduleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,22 +64,7 @@ public class ProjectParticipatorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View ra = inflater.inflate(R.layout.fragment_project_participator, container, false);
-        final ArrayList<Creator> word = new ArrayList<>();
-        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016"));
-
-        ListView listView = (ListView) ra.findViewById(R.id.list_participator);
-        final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimaryDark);
-        listView.setAdapter(simpleAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView adapterView,View view,int position,long l){
-                Creator ra1 = (Creator) simpleAdapter.getItem(position);
-                Intent info = new Intent(getActivity(),Project_part2.class);
-                startActivity(info);
-            }
-        });
-        return ra;
+        return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -109,16 +88,7 @@ public class ProjectParticipatorFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        try {
-            Field childFragmentManager = Fragment.class
-                    .getDeclaredField("mChildFragmentManager");
-            childFragmentManager.setAccessible(true);
-            childFragmentManager.set(this, null);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        mListener = null;
     }
 
     /**
