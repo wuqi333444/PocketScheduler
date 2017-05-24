@@ -7,6 +7,12 @@
     <string name="title_participator">Participator</string>
     <string name="title_Events">Events</string>
 
+    <!-- String in Event Fragment -->
+    <string name="title_event_Previous">Previous</string>
+    <string name="title_event_ComingSoon">Coming\n Soon</string>
+    <string name="title_event_DraftBox">Draft\n Box</string>
+    <string name="title_event_PendingBox">Pending\n Box</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>

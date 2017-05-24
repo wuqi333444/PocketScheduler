@@ -1,13 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.wuqi.pocketscheduler.EventsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <include
+        android:id = "@+id/id_eventbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        layout="@layout/event_bar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <FrameLayout
+        android:id="@+id/event_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hi this is events fragment" />
+        android:layout_below="@+id/id_eventbar"
+        />
 
-</FrameLayout>
+</RelativeLayout>
