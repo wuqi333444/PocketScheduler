@@ -25,8 +25,6 @@ public class Project_part2 extends AppCompatActivity implements InfoFragment.OnF
         mTabInfo = (Button) findViewById(R.id.Button_info);
         mTabScheule = (Button) findViewById(R.id.Button_schedule);
         mTabQuest = (Button) findViewById(R.id.Button_quest);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +44,7 @@ public class Project_part2 extends AppCompatActivity implements InfoFragment.OnF
                     mInfo = new InfoFragment();
                 }
                 // 使用当前Fragment的布局替代id_content的控件
-                transaction.replace(R.id.id_content, mInfo);
+                transaction.replace(R.id.project_part2_content, mInfo);
                 transaction.addToBackStack(null);
                 // 事务提交
                 transaction.commit();
@@ -63,7 +61,7 @@ public class Project_part2 extends AppCompatActivity implements InfoFragment.OnF
                     mSchedule = new ScheduleFragment();
                 }
                 // 使用当前Fragment的布局替代id_content的控件
-                transaction.replace(R.id.id_content, mSchedule);
+                transaction.replace(R.id.project_part2_content, mSchedule);
 
                 transaction.addToBackStack(null);
                 // 事务提交
@@ -80,7 +78,7 @@ public class Project_part2 extends AppCompatActivity implements InfoFragment.OnF
                     mQuest = new QuestFragment();
                 }
                 // 使用当前Fragment的布局替代id_content的控件
-                transaction.replace(R.id.id_content, mQuest);
+                transaction.replace(R.id.project_part2_content, mQuest);
 
                 transaction.addToBackStack(null);
                 // 事务提交
@@ -99,7 +97,7 @@ public class Project_part2 extends AppCompatActivity implements InfoFragment.OnF
             mSchedule = new ScheduleFragment();
         }
         // 使用当前Fragment的布局替代id_content的控件
-        transaction.replace(R.id.id_content, mSchedule);
+        transaction.replace(R.id.project_part2_content, mSchedule);
 
         transaction.addToBackStack(null);
         // 事务提交
