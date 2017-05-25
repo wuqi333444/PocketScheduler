@@ -1,23 +1,16 @@
-package com.example.wuqi.pocketscheduler;
+package com.example.wuqi.pocketscheduler.project;
 
 import android.widget.ArrayAdapter;
 import android.support.annotation.NonNull;
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.wuqi.pocketscheduler.R;
+
 import java.util.ArrayList;
-import static com.example.wuqi.pocketscheduler.R.id.list_creator;
-import static com.example.wuqi.pocketscheduler.R.id.ra;
-import static com.example.wuqi.pocketscheduler.R.id.ra1;
-import static com.example.wuqi.pocketscheduler.R.id.ra2;
 
 /**
  * Created by RapHaeL on 2017/5/24.
@@ -25,7 +18,7 @@ import static com.example.wuqi.pocketscheduler.R.id.ra2;
 
 public class CustomAdapter extends ArrayAdapter {
     private int backgroundColor;
-    public CustomAdapter(Activity context, ArrayList<Creator> creator,int mbackgroundColor) {
+    public CustomAdapter(Activity context, ArrayList<Creator> creator, int mbackgroundColor) {
         super(context, 0,creator);
         backgroundColor = mbackgroundColor;
     }

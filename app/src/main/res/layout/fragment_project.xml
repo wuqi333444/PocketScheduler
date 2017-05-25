@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.wuqi.pocketscheduler.ProjectFragment">
+    tools:context="com.example.wuqi.pocketscheduler.com.pocketscheduler.project.ProjectFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

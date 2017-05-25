@@ -1,4 +1,4 @@
-package com.example.wuqi.pocketscheduler;
+package com.example.wuqi.pocketscheduler.event;
 
 /**
  * Created by under on 5/24/2017.

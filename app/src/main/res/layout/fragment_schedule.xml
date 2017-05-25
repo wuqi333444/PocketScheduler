@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     android:divider="@null"
     android:dividerHeight="0dp"
-    tools:context="com.example.wuqi.pocketscheduler.ScheduleFragment">
+    tools:context="com.example.wuqi.pocketscheduler.com.pocketscheduler.project.ScheduleFragment">
 
 </ListView>

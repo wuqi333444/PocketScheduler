@@ -1,4 +1,4 @@
-package com.example.wuqi.pocketscheduler;
+package com.example.wuqi.pocketscheduler.event;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,20 +7,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.example.wuqi.pocketscheduler.R;
 
+import java.lang.reflect.Field;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CalendarFragment.OnFragmentInteractionListener} interface
+ * {@link EventComingSoonFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CalendarFragment#newInstance} factory method to
+ * Use the {@link EventComingSoonFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalendarFragment extends Fragment {
+public class EventComingSoonFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +32,7 @@ public class CalendarFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CalendarFragment() {
+    public EventComingSoonFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +42,11 @@ public class CalendarFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CalendarFragment.
+     * @return A new instance of fragment EventComingSoonFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CalendarFragment newInstance(String param1, String param2) {
-        CalendarFragment fragment = new CalendarFragment();
+    public static EventComingSoonFragment newInstance(String param1, String param2) {
+        EventComingSoonFragment fragment = new EventComingSoonFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,19 +66,7 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
-        final ArrayList<Event> eventArrayList = new ArrayList<>();
-        eventArrayList.add(new Event("Lunch"));
-        eventArrayList.add(new Event("Dinner"));
-        eventArrayList.add(new Event("Breakfast"));
-        eventArrayList.add(new Event("hangout"));
-        eventArrayList.add(new Event("basketball"));
-        eventArrayList.add(new Event("football"));
-        EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
-        ListView listView = (ListView) rootView.findViewById(R.id.id_eventlist);
-        listView.setAdapter(adapter);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_events_comingsoon, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -102,7 +90,16 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        try {
+            Field childFragmentManager = Fragment.class
+                    .getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

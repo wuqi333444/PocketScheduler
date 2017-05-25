@@ -1,23 +1,26 @@
-package com.example.wuqi.pocketscheduler;
+package com.example.wuqi.pocketscheduler.main;
 
-import android.app.FragmentManager;
 import android.net.Uri;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+import com.example.wuqi.pocketscheduler.calender.CalendarFragment;
+import com.example.wuqi.pocketscheduler.event.EventComingSoonFragment;
+import com.example.wuqi.pocketscheduler.event.EventDraftboxFragment;
+import com.example.wuqi.pocketscheduler.event.EventPreviousFragment;
+import com.example.wuqi.pocketscheduler.event.EventsFragment;
+import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.event.EventPendingboxFragment;
+import com.example.wuqi.pocketscheduler.project.ProjectCreatorFragment;
+import com.example.wuqi.pocketscheduler.project.ProjectFragment;
+import com.example.wuqi.pocketscheduler.project.ProjectParticipatorFragment;
 
 
-public class MainActivity extends AppCompatActivity implements CalendarFragment.OnFragmentInteractionListener, ProjectFragment.OnFragmentInteractionListener,EventsFragment.OnFragmentInteractionListener,ProjectCreatorFragment.OnFragmentInteractionListener,ProjectParticipatorFragment.OnFragmentInteractionListener,EventPreviousFragment.OnFragmentInteractionListener,EventDraftboxFragment.OnFragmentInteractionListener,EventPendingboxFragment.OnFragmentInteractionListener,EventComingSoonFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements CalendarFragment.OnFragmentInteractionListener, ProjectFragment.OnFragmentInteractionListener,EventsFragment.OnFragmentInteractionListener,ProjectCreatorFragment.OnFragmentInteractionListener,ProjectParticipatorFragment.OnFragmentInteractionListener,EventPreviousFragment.OnFragmentInteractionListener,EventDraftboxFragment.OnFragmentInteractionListener,EventPendingboxFragment.OnFragmentInteractionListener,EventComingSoonFragment.OnFragmentInteractionListener {
     private Button mTabCalendar;
     private Button mTabProject;
     private Button mTabEvents;

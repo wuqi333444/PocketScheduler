@@ -1,9 +1,7 @@
-package com.example.wuqi.pocketscheduler;
+package com.example.wuqi.pocketscheduler.project;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,33 +9,28 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.app.AlertDialog;
+
+import com.example.wuqi.pocketscheduler.R;
 
 import java.util.ArrayList;
-
-import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link QuestFragment.OnFragmentInteractionListener} interface
+ * {@link ScheduleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link QuestFragment#newInstance} factory method to
+ * Use the {@link ScheduleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuestFragment extends Fragment {
+public class ScheduleFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private Button mTabQuestAssign;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -45,7 +38,7 @@ public class QuestFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public QuestFragment() {
+    public ScheduleFragment() {
         // Required empty public constructor
     }
 
@@ -55,11 +48,11 @@ public class QuestFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment QuestFragment.
+     * @return A new instance of fragment ScheduleFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static QuestFragment newInstance(String param1, String param2) {
-        QuestFragment fragment = new QuestFragment();
+    public static ScheduleFragment newInstance(String param1, String param2) {
+        ScheduleFragment fragment = new ScheduleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -80,44 +73,18 @@ public class QuestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View ra = inflater.inflate(R.layout.fragment_quest, container, false);
-
+        View ra = inflater.inflate(R.layout.fragment_schedule, container, false);
         final ArrayList<Creator> word = new ArrayList<>();
-        word.add(new Creator("1","Assemble Computer","Due date : May 6, 2016"));
-        word.add(new Creator("2","Rec Center Basketball","Due date : May 15, 2016"));
-        word.add(new Creator("3","Pocket Scheduler Design","Due date : May 24, 2016"));
-        word.add(new Creator("4","Fishing Day","Due date : May 30, 2016"));
-        word.add(new Creator("5","Angel's Birthday","Due date : Jun 4, 2016"));
-        ListView listView = (ListView) ra.findViewById(R.id.list_quest);
+        word.add(new Creator("A","Title: Start","Progress: working on assemble computer"));
+        word.add(new Creator("B","Title: Rec Center Basketball","Progress: 15%"));
+        word.add(new Creator("C","Title: Pocket Scheduler Design","Progress: 20%"));
+        word.add(new Creator("D","Title: Fishing Day","Progress: 78%"));
+        word.add(new Creator("E","Title: Angel's Birthday","Progress: finished"));
+        ListView listView = (ListView) ra.findViewById(R.id.list_schedule);
         final Custom1Adapter simpleAdapter = new Custom1Adapter(getActivity(),word,R.color.colorPrimary);
         listView.setAdapter(simpleAdapter);
         return ra;
     }
-
-
-    private int yourChoice;
-    private void showAssignDialog(){
-        final String[] items = { "Raphael","Nan Tian","Wu Qi","Cui Yu" };
-        yourChoice = -1;
-        AlertDialog.Builder ChoiceDialog = new AlertDialog.Builder(getActivity());
-        ChoiceDialog.setTitle("Quest Assign");
-        // 第二个参数是默认选项，此处设置为0
-        ChoiceDialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    yourChoice = which;
-                }
-        });
-        ChoiceDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (yourChoice != -1) {
-                    Toast.makeText(getActivity(),"YOU CHOOSE" + items[yourChoice], Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        ChoiceDialog.create().show();
-        }
 
     public class Custom1Adapter extends ArrayAdapter {
         private int backgroundColor;
@@ -131,21 +98,14 @@ public class QuestFragment extends Fragment {
             View listItemView = convertView;
             if(listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(
-                        R.layout.questassign_project, parent, false);
+                        R.layout.schedulelist_project, parent, false);
             }
-            mTabQuestAssign = (Button) listItemView.findViewById(R.id.questassign_button);
-            mTabQuestAssign.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    showAssignDialog();
-                }
-            });
             Creator ra1 = (Creator) getItem(position);
             TextView ra2 = (TextView)listItemView.findViewById(R.id.ra1);
             ra2.setText(ra1.getmSName());
-            TextView ra3 = (TextView)listItemView.findViewById(R.id.ra3);
+            TextView ra3 = (TextView)listItemView.findViewById(R.id.ra6);
             ra3.setText(ra1.getmLName());
-            TextView ra4 = (TextView) listItemView.findViewById(R.id.ra4);
+            TextView ra4 = (TextView) listItemView.findViewById(R.id.ra3);
             ra4.setText(ra1.getmDate());
             return listItemView;
         }

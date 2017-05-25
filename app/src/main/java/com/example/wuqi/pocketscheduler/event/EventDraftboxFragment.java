@@ -1,4 +1,4 @@
-package com.example.wuqi.pocketscheduler;
+package com.example.wuqi.pocketscheduler.event;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,19 +7,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.example.wuqi.pocketscheduler.R;
 
 import java.lang.reflect.Field;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link EventPendingboxFragment.OnFragmentInteractionListener} interface
+ * {@link EventDraftboxFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link EventPendingboxFragment#newInstance} factory method to
+ * Use the {@link EventDraftboxFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EventPendingboxFragment extends Fragment {
+public class EventDraftboxFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +32,7 @@ public class EventPendingboxFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public EventPendingboxFragment() {
+    public EventDraftboxFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +42,11 @@ public class EventPendingboxFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment EventPendingboxFragment.
+     * @return A new instance of fragment EventDraftboxFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EventPendingboxFragment newInstance(String param1, String param2) {
-        EventPendingboxFragment fragment = new EventPendingboxFragment();
+    public static EventDraftboxFragment newInstance(String param1, String param2) {
+        EventDraftboxFragment fragment = new EventDraftboxFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +66,7 @@ public class EventPendingboxFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_events_pendingbox,container,false);
+        return inflater.inflate(R.layout.fragment_events_draftbox,container,false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

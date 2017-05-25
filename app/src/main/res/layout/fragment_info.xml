@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/magnitude1"
-    tools:context="com.example.wuqi.pocketscheduler.InfoFragment">
+    tools:context="com.example.wuqi.pocketscheduler.com.pocketscheduler.project.InfoFragment">
 
     <TextView
         android:layout_width="wrap_content"
