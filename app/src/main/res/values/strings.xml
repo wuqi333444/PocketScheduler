@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">PocketScheduler</string>
     <string name="title_activity_main">MainActivity</string>
+    <!-- String in Calendar Fragment-->
     <string name="title_Calendar">Calendar</string>
+    <!-- Stings in Project Fragment-->
     <string name="title_Project">Project</string>
     <string name="title_Creator">Creator</string>
     <string name="title_Participant">Participant</string>
     <string name="title_Events">Events</string>
+    <string name="title_Info">Info</string>
+    <string name="title_Schedule">Schedule</string>
+    <string name="title_Quest">Quest</string>
+
 
     <!-- String in Event Fragment -->
     <string name="title_event_Previous">Previous</string>

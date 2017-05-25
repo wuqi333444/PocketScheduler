@@ -11,12 +11,12 @@
         android:id = "@+id/id_projectpart2bar"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        layout = "@layout/project_bar2" />
+        layout = "@layout/tab_project_2" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/id_projectpart2bar"
+        android:layout_below="@id/id_projectpart2bar"
         android:id="@+id/project_part2_content">
 
         <android.support.design.widget.FloatingActionButton
