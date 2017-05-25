@@ -3,6 +3,7 @@ package com.example.wuqi.pocketscheduler.event;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.project.ProjectCreatorFragment;
+import com.example.wuqi.pocketscheduler.project.ProjectParticipatorFragment;
 
 import java.lang.reflect.Field;
 
@@ -33,11 +36,11 @@ public class EventsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    // Button
-    private Button mTabEvent_ComingSoon;
-    private Button mTabEvent_Draftbox;
-    private Button mTabEvent_Pendingbox;
-    private Button mTabEvent_Previous;
+    private TabLayout tabEvent;
+    private EventPreviousFragment mEventPreviousFragment;
+    private EventComingSoonFragment mEventComingSoonFragment;
+    private EventDraftboxFragment mEventDraftboxFragment;
+    private EventPendingboxFragment mEventPendingboxFragment;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,51 +80,61 @@ public class EventsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View ra = inflater.inflate(R.layout.fragment_events, container, false);
-        mTabEvent_ComingSoon = (Button) ra.findViewById(R.id.Button_ComingSoon);
-        mTabEvent_Draftbox = (Button) ra.findViewById(R.id.Button_DraftBox);
-        mTabEvent_Pendingbox = (Button) ra.findViewById(R.id.Button_PendingBox);
-        mTabEvent_Previous = (Button) ra.findViewById(R.id.Button_Previous);
-
-        mTabEvent_Previous.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Fragment fm = new EventPreviousFragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.event_frame, fm).addToBackStack(null).commit();
-            }
-        });
-
-        mTabEvent_ComingSoon.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Fragment fm = new EventComingSoonFragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.event_frame, fm).addToBackStack(null).commit();
-            }
-        });
-
-        mTabEvent_Draftbox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Fragment fm = new EventDraftboxFragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.event_frame, fm).addToBackStack(null).commit();
-            }
-        });
-
-        mTabEvent_Pendingbox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Fragment fm = new EventPendingboxFragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.event_frame, fm).addToBackStack(null).commit();
-            }
-        });
+        setupEventTab(ra);
         setDefaultFragment();
         return ra;
     }
 
     private void setDefaultFragment(){
-        Fragment fm = new EventPreviousFragment();
+        mEventComingSoonFragment = new EventComingSoonFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.event_frame, fm);
+        transaction.replace(R.id.event_content, mEventComingSoonFragment);
         transaction.addToBackStack(null).commit();
+    }
+    private void setupEventTab(View v){
+        tabEvent = (TabLayout) v.findViewById(R.id.tab_event);
+        tabEvent.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                setCurrentTabFragment(tab.getPosition());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+    }
+    private void setCurrentTabFragment(int tabPosition){
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        switch (tabPosition)
+        {
+            case 0 :
+                if(mEventComingSoonFragment == null){
+                    mEventComingSoonFragment = new EventComingSoonFragment();
+                }
+                transaction.replace(R.id.event_content, mEventComingSoonFragment).addToBackStack(null).commit();
+                break;
+            case 1 :
+                if(mEventPreviousFragment == null){
+                    mEventPreviousFragment = new EventPreviousFragment();
+                }
+                transaction.replace(R.id.event_content, mEventPreviousFragment).addToBackStack(null).commit();
+                break;
+            case 2:
+                if(mEventDraftboxFragment == null){
+                    mEventDraftboxFragment = new EventDraftboxFragment();
+                }
+                transaction.replace(R.id.event_content, mEventDraftboxFragment).addToBackStack(null).commit();
+                break;
+            case 3:
+                if(mEventPendingboxFragment == null){
+                    mEventPendingboxFragment = new EventPendingboxFragment();
+                }
+                transaction.replace(R.id.event_content, mEventPendingboxFragment).addToBackStack(null).commit();
+                break;
+        }
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

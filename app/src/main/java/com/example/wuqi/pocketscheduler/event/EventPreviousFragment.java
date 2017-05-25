@@ -74,10 +74,6 @@ public class EventPreviousFragment extends Fragment {
         final ArrayList<Event> eventArrayList = new ArrayList<>();
         eventArrayList.add(new Event("Lunch"));
         eventArrayList.add(new Event("Dinner"));
-        eventArrayList.add(new Event("Breakfast"));
-        eventArrayList.add(new Event("hangout"));
-        eventArrayList.add(new Event("basketball"));
-        eventArrayList.add(new Event("football"));
         EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
         ListView listView = (ListView) rootView.findViewById(R.id.previous_list);
         listView.setAdapter(adapter);
