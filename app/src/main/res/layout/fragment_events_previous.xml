@@ -3,6 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/previous_list"
-    tools:context="com.example.wuqi.pocketscheduler.com.pocketscheduler.event.EventPreviousFragment">
+    tools:context="com.example.wuqi.pocketscheduler.event.EventPreviousFragment">
 
 </ListView>

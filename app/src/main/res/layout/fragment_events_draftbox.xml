@@ -3,6 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/draftbox_list"
-    tools:context="com.example.wuqi.pocketscheduler.com.pocketscheduler.event.EventDraftboxFragment">
+    tools:context="com.example.wuqi.pocketscheduler.event.EventDraftboxFragment">
 
 </ListView>

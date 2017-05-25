@@ -20,7 +20,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context = "com.example.wuqi.pocketscheduler.com.pocketscheduler.main.MainActivity">
+    tools:context = "com.example.wuqi.pocketscheduler.main.MainActivity">
 
 
     <include

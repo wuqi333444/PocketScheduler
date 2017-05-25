@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/magnitude1"
-    tools:context="com.example.wuqi.pocketscheduler.com.pocketscheduler.project.Project_part2">
+    tools:context="com.example.wuqi.pocketscheduler.project.Project_part2">
 
     <include
         android:id = "@+id/id_projectpart2bar"
