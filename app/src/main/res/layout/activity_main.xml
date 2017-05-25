@@ -27,7 +27,7 @@
         android:id = "@+id/id_bottombar"
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        layout = "@layout/bottom_bar"
+        layout = "@layout/tab_bottom"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
