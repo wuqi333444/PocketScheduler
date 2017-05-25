@@ -14,8 +14,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"></CalendarView>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+        <include
+            android:id = "@+id/id_eventlist"
+            android:layout_width="fill_parent"
+            android:layout_height = "fill_parent"
+            layout = "@layout/list" />
+
     </LinearLayout>
 </FrameLayout>

@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -58,14 +61,24 @@ public class CalendarFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
+        final ArrayList<Event> eventArrayList = new ArrayList<>();
+        eventArrayList.add(new Event("Lunch"));
+        eventArrayList.add(new Event("Dinner"));
+        eventArrayList.add(new Event("Breakfast"));
+        eventArrayList.add(new Event("hangout"));
+        eventArrayList.add(new Event("basketball"));
+        eventArrayList.add(new Event("football"));
+        EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
+        ListView listView = (ListView) rootView.findViewById(R.id.id_eventlist);
+        listView.setAdapter(adapter);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
