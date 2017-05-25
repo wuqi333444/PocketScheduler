@@ -11,13 +11,13 @@
         android:id = "@+id/id_projectbar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        layout="@layout/project_bar"
+        layout="@layout/tab_project"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
     <FrameLayout
-        android:id="@+id/d123"
+        android:id="@+id/project_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/id_projectbar"

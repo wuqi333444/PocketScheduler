@@ -3,6 +3,7 @@ package com.example.wuqi.pocketscheduler.project;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.calender.CalendarFragment;
+import com.example.wuqi.pocketscheduler.event.EventsFragment;
 
 import java.lang.reflect.Field;
 
@@ -28,19 +31,12 @@ public class ProjectFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private Button mTabProject_Creator;
-    private Button mTabProject_Participator;
-
-
-    private ProjectCreatorFragment mProjectCreator;
-    private ProjectParticipatorFragment mProjectParticipator;
-
-
-
-
+    private TabLayout projectTab;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ProjectCreatorFragment mProjectCreatorFragment;
+    private ProjectParticipatorFragment mProjectParticipatorFragment;
 
     private OnFragmentInteractionListener mListener;
 
@@ -81,32 +77,50 @@ public class ProjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View ra = inflater.inflate(R.layout.fragment_project, container, false);
-        mTabProject_Participator = (Button) ra.findViewById(R.id.Button_participator);
-        mTabProject_Creator = (Button) ra.findViewById(R.id.Button_creator);
-        mTabProject_Creator.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Fragment fm = new ProjectCreatorFragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.d123, fm).addToBackStack(null).commit();
-            }
-        });
-
-        mTabProject_Participator.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Fragment fm = new ProjectParticipatorFragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.d123, fm).addToBackStack(null).commit();
-            }
-        });
+        setupProjectTab(ra);
         setDefaultFragment();
         return ra;
     }
 
     private void setDefaultFragment(){
-        Fragment fm = new ProjectCreatorFragment();
+        mProjectCreatorFragment = new ProjectCreatorFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.d123, fm);
+        transaction.replace(R.id.project_content, mProjectCreatorFragment);
         transaction.addToBackStack(null).commit();
+    }
+    private void setupProjectTab(View v){
+        projectTab = (TabLayout) v.findViewById(R.id.tab_project);
+        projectTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                setCurrentTabFragment(tab.getPosition());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+    }
+    private void setCurrentTabFragment(int tabPosition){
+        Fragment fm = new ProjectCreatorFragment();        // 开启Fragment事务
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        switch (tabPosition)
+        {
+            case 0 :
+                if(mProjectCreatorFragment == null){
+                    mProjectCreatorFragment = new ProjectCreatorFragment();
+                }
+                transaction.replace(R.id.project_content, mProjectCreatorFragment).addToBackStack(null).commit();
+                break;
+            case 1 :
+                if(mProjectParticipatorFragment == null){
+                    mProjectParticipatorFragment = new ProjectParticipatorFragment();
+                }
+                transaction.replace(R.id.project_content, mProjectParticipatorFragment).addToBackStack(null).commit();
+                break;
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

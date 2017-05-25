@@ -3,8 +3,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_Calendar">Calendar</string>
     <string name="title_Project">Project</string>
-    <string name="title_cretor">Creator</string>
-    <string name="title_participator">Participator</string>
+    <string name="title_Creator">Creator</string>
+    <string name="title_Participant">Participant</string>
     <string name="title_Events">Events</string>
 
     <!-- String in Event Fragment -->
