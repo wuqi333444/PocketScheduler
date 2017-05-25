@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.wuqi.pocketscheduler.R;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +68,18 @@ public class EventPendingboxFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_events_pendingbox,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_events_pendingbox, container, false);
+        final ArrayList<Event> eventArrayList = new ArrayList<>();
+        eventArrayList.add(new Event("Lunch"));
+        eventArrayList.add(new Event("Dinner"));
+        eventArrayList.add(new Event("Breakfast"));
+        eventArrayList.add(new Event("hangout"));
+        eventArrayList.add(new Event("basketball"));
+        eventArrayList.add(new Event("football"));
+        EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
+        ListView listView = (ListView) rootView.findViewById(R.id.pendingbox_list);
+        listView.setAdapter(adapter);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

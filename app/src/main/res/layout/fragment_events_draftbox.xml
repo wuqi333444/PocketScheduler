@@ -1,13 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/draftbox_list"
     tools:context="com.example.wuqi.pocketscheduler.com.pocketscheduler.event.EventDraftboxFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_event_DraftBox" />
-
-</FrameLayout>
+</ListView>
