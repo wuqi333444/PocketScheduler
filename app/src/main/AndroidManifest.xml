@@ -35,7 +35,8 @@
         <activity
             android:name=".project.Project_part2"
             android:label="@string/title_activity_project_part2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".project.NewProject"></activity>
     </application>
 
 </manifest>
