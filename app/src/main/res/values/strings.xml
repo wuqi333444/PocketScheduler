@@ -38,4 +38,7 @@
     </string>
     <string name="title_activity_project_part2">Project_part2</string>
     <string name="title_activity_new_project">NewProject</string>
+    <!-- Strings related to the side drawer-->
+    <string name = "drawer_open">drawer_open</string>
+    <string name = "drawer_close">drawer_close</string>
 </resources>
