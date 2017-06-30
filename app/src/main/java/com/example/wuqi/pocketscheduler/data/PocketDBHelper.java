@@ -1,5 +1,6 @@
 package com.example.wuqi.pocketscheduler.data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,7 +11,7 @@ import com.example.wuqi.pocketscheduler.data.Contract;
  */
 
 public class PocketDBHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "Pocket.db";
     public PocketDBHelper(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -74,20 +75,27 @@ public class PocketDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_PROJECT_MEMBERS_PAIRENTRY =
             "CREATE TABLE " + Contract.Project_Members_pairEntry.TABLE_NAME + " ("
                     + Contract.Project_Members_pairEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + Contract.Project_Members_pairEntry.COLUMN_PROJECTID + " INTEGER NOT NULL"
+                    + Contract.Project_Members_pairEntry.COLUMN_PROJECTID + " INTEGER NOT NULL,"
                     + Contract.Project_Members_pairEntry.COLUMN_MEMBERID + "INTEGER NOT NULL);";
 
     private static final String SQL_CREATE_EVENT_CANDIDATES_PAIRENTRY =
             "CREATE TABLE " + Contract.Event_Candidates_pairEntry.TABLE_NAME + " ("
                     + Contract.Event_Candidates_pairEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + Contract.Event_Candidates_pairEntry.COLUMN_EVENTID + " INTEGER NOT NULL"
+                    + Contract.Event_Candidates_pairEntry.COLUMN_EVENTID + " INTEGER NOT NULL,"
                     + Contract.Event_Candidates_pairEntry.COLUMN_CANDIDATEID + "INTEGER NOT NULL);";
 
     private static final String SQL_CREATE_EVENT_EDITABLE_PAIRENTRY =
             "CREATE TABLE " + Contract.Event_Editable_pairEntry.TABLE_NAME + " ("
                     + Contract.Event_Editable_pairEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + Contract.Event_Editable_pairEntry.COLUMN_EVENTID + " INTEGER NOT NULL"
+                    + Contract.Event_Editable_pairEntry.COLUMN_EVENTID + " INTEGER NOT NULL,"
                     + Contract.Event_Editable_pairEntry.COLUMN_EDITABLEID + "INTEGER NOT NULL);";
+
+    //sql for account based job
+    private static final String SQL_CREATE_ACCOUNT =
+            "CREATE TABLE " + Contract.AccountEntry.TABLE_NAME + " ("
+                    + Contract.AccountEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + Contract.AccountEntry.COLUMN_USERNAME + " TEXT NOT NULL,"
+                    + Contract.AccountEntry.COLUMN_PASSWORD + " TEXT NOT NULL);";
 
     @Override
     public void onCreate(SQLiteDatabase db){
@@ -99,6 +107,7 @@ public class PocketDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PROJECT_MEMBERS_PAIRENTRY);
         db.execSQL(SQL_CREATE_EVENT_CANDIDATES_PAIRENTRY);
         db.execSQL(SQL_CREATE_EVENT_EDITABLE_PAIRENTRY);
+        db.execSQL(SQL_CREATE_ACCOUNT);
     }
 
     private static final String SQL_DELETE_USERENTRY = "DROP TABLE IF EXISTS " + Contract.UserEntry.TABLE_NAME;
@@ -109,6 +118,8 @@ public class PocketDBHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_PROJECT_MEMBERS_PAIRENTRY = "DROP TABLE IF EXISTS " + Contract.Project_Members_pairEntry.TABLE_NAME;
     private static final String SQL_DELETE_EVENT_CANDIDATES_PAIRENTRY = "DROP TABLE IF EXISTS " + Contract.Event_Candidates_pairEntry.TABLE_NAME;
     private static final String SQL_DELETE_EVENT_EDITABLE_PAIRENTRY = "DROP TABLE IF EXISTS " + Contract.Event_Editable_pairEntry.TABLE_NAME;
+    private static final String SQL_DELETE_ACCOUNT = "DROP TABLE IF EXISTS " + Contract.AccountEntry.TABLE_NAME;
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
@@ -120,7 +131,15 @@ public class PocketDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_PROJECT_MEMBERS_PAIRENTRY);
         db.execSQL(SQL_DELETE_EVENT_CANDIDATES_PAIRENTRY);
         db.execSQL(SQL_DELETE_EVENT_EDITABLE_PAIRENTRY);
+        db.execSQL(SQL_DELETE_ACCOUNT);
         onCreate(db);
+    }
+
+    public void registerAccount(SQLiteDatabase db, String email, String password){
+        ContentValues cv = new ContentValues();
+        cv.put(Contract.AccountEntry.COLUMN_USERNAME,email);
+        cv.put(Contract.AccountEntry.COLUMN_PASSWORD,password);
+        db.insert(Contract.AccountEntry.TABLE_NAME,null,cv);
     }
 
 //    public void onDowngrade(SQLiteDatabase db,int oldVersion, int newVersion) {

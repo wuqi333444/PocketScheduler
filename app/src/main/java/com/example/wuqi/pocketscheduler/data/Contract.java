@@ -54,7 +54,33 @@ public final class Contract {
         public static final int EDITPRIORITY_ALL = 1;
     }
 
-    public static abstract class DraftboxEntry extends EventEntry{
+    public static abstract class DraftboxEntry implements BaseColumns{
+        public static final String TABLE_NAME = "draftbox";
+
+        public static final String _ID = BaseColumns._ID;
+        public static final String COLUMN_EVENTID = "eventid";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_STARTTIME = "starttime";
+        public static final String COLUMN_PROJECTID = "projectid";
+        public static final String COLUMN_ENDTIME = "endtime";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_ISLONG = "islong";
+        public static final String COLUMN_EDITPRIORITY = "editpriority";
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_ISFINISHED = "isfinished";
+        public static final String COLUMN_ISSHARED = "isshared";
+        public static final String COLUMN_CREATORID = "creatorid";
+        public static final String COLUMN_LOCATION = "location";
+
+        public static final int TYPE_ENTERTAIMENT = 1;
+        public static final int TYPE_STUDY = 2;
+        public static final int TYPE_JOB = 3;
+        public static final int TYPE_FRIEND = 4;
+        public static final int TYPE_FAMILY = 5;
+        public static final int TYPE_TRIP = 6;
+
+        public static final int EDITPRIORITY_CREATOR = 0;
+        public static final int EDITPRIORITY_ALL = 1;
     }
 
     public static abstract class MemberEntry implements BaseColumns{
@@ -88,5 +114,12 @@ public final class Contract {
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_EVENTID = "eventid";
         public static final String COLUMN_EDITABLEID = "editableid";
+    }
+    public static abstract class AccountEntry implements BaseColumns{
+        public static final String TABLE_NAME = "account";
+
+        public static final String _ID = BaseColumns._ID;
+        public static final String COLUMN_USERNAME = "username";
+        public static final String COLUMN_PASSWORD = "password";
     }
 }
