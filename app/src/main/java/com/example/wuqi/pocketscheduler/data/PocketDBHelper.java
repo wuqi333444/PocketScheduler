@@ -26,9 +26,10 @@ public class PocketDBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + Contract.ProjectEntry.TABLE_NAME + " ("
                     + Contract.ProjectEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + Contract.ProjectEntry.COLUMN_PROJECTID + " INTEGER NOT NULL,"
-                    + Contract.ProjectEntry.COLLUMN_DESCRIPTION + " TEXT,"
+                    + Contract.ProjectEntry.COLUMN_DESCRIPTION + " TEXT,"
                     + Contract.ProjectEntry.COLUMN_BEGINTIME + " TEXT,"
                     + Contract.ProjectEntry.COLUMN_CREATOR + " TEXT,"
+                    + Contract.ProjectEntry.COLUMN_TYPE + "TEXT,"
                     + Contract.ProjectEntry.COLUMN_TITLE + " TEXT);";
 
     private static final String SQL_CREATE_EVENTENTRY =

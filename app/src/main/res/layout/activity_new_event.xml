@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.example.wuqi.pocketscheduler.event.NewEvent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="New Event"
+        android:textSize="28dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="194dp"
+        android:layout_gravity="center"
+        android:src="@drawable/twodogs2">
+
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Label -->
+                    <TextView
+                        style="@style/CategoryStyle"
+                        android:text="OVERVIEW" />
+
+                    <!-- Input fields -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <!-- Name field -->
+                        <EditText
+                            android:id="@+id/edit_event_name"
+                            style="@style/EditorFieldStyle"
+                            android:hint="Event Name"
+                            android:inputType="textCapWords" />
+
+                        <!-- Breed field -->
+                        <EditText
+                            android:id="@+id/edit_evedescription"
+                            style="@style/EditorFieldStyle"
+                            android:hint="Description"
+                            android:inputType="textCapWords" />
+
+                        <EditText
+                            android:id="@+id/edit_evebelongedpro"
+                            style="@style/EditorFieldStyle"
+                            android:hint="belonged project ID"
+                            android:inputType="number" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Type category -->
+                <LinearLayout
+                    android:id="@+id/container_evetype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Label -->
+                    <TextView
+                        style="@style/CategoryStyle"
+                        android:text="TYPE" />
+
+                    <!-- Input field -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <!-- Type drop-down spinner -->
+                        <Spinner
+                            android:id="@+id/spinner_evetype"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:paddingRight="16dp"
+                            android:spinnerMode="dropdown" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/container_eveeditpriority"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Label -->
+                    <TextView
+                        style="@style/CategoryStyle"
+                        android:text="EDITPRIORITY" />
+
+                    <!-- Input field -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <!-- Type drop-down spinner -->
+                        <Spinner
+                            android:id="@+id/spinner_eveeditpriority"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:paddingRight="16dp"
+                            android:spinnerMode="dropdown" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/container_evestarttime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Label -->
+                    <TextView
+                        style="@style/CategoryStyle"
+                        android:text="START TIME" />
+
+                    <!-- Input fields -->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingLeft="4dp">
+
+                        <!-- start time field -->
+                        <EditText
+                            android:id="@+id/edit_evestarttime"
+                            style="@style/EditorFieldStyle"
+                            android:hint="start time"
+                            android:inputType="number" />
+
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/container_eveendtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Label -->
+                    <TextView
+                        style="@style/CategoryStyle"
+                        android:text="END TIME" />
+
+                    <!-- Input fields -->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingLeft="4dp">
+
+                        <!-- end time field -->
+                        <EditText
+                            android:id="@+id/edit_eveendtime"
+                            style="@style/EditorFieldStyle"
+                            android:hint="end time"
+                            android:inputType="number" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                android:id="@+id/container_evecreator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/CategoryStyle"
+                    android:text="CREATOR" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:paddingLeft="4dp">
+
+                    <!-- start time field -->
+                    <EditText
+                        android:id="@+id/edit_evecreator"
+                        style="@style/EditorFieldStyle"
+                        android:hint="project creator"
+                        android:inputType="textCapWords" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/container_evelocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/CategoryStyle"
+                        android:text="LOCATION" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingLeft="4dp">
+
+                        <!-- start time field -->
+                        <EditText
+                            android:id="@+id/edit_evelocation"
+                            style="@style/EditorFieldStyle"
+                            android:hint="event location"
+                            android:inputType="textCapWords" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

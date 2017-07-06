@@ -22,7 +22,17 @@ public final class Contract {
         public static final String COLUMN_CREATOR = "creator";
         public static final String COLUMN_BEGINTIME = "begintime";
         public static final String COLUMN_TITLE = "title";
-        public static final String COLLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_TYPE = "type";
+
+        public static final int TYPE_ENTERTAIMENT = 1;
+        public static final int TYPE_STUDY = 2;
+        public static final int TYPE_JOB = 3;
+        public static final int TYPE_FRIEND = 4;
+        public static final int TYPE_FAMILY = 5;
+        public static final int TYPE_TRIP = 6;
+        public static final int TYPE_SPORT = 7;
+        public static final int TYPE_DATE = 8;
     }
 
     public static abstract class EventEntry implements BaseColumns{
@@ -49,6 +59,11 @@ public final class Contract {
         public static final int TYPE_FRIEND = 4;
         public static final int TYPE_FAMILY = 5;
         public static final int TYPE_TRIP = 6;
+        public static final int TYPE_SPORT = 7;
+        public static final int TYPE_DATE = 8;
+
+        public static final boolean ISLONG_TRUE = true;
+        public static final boolean ISLONG_FALSE = false;
 
         public static final int EDITPRIORITY_CREATOR = 0;
         public static final int EDITPRIORITY_ALL = 1;

@@ -1,15 +1,154 @@
 package com.example.wuqi.pocketscheduler.project;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.data.Contract;
+import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
 public class NewProject extends AppCompatActivity {
+
+    private EditText mProjectCreator;
+    private EditText mProjectStartTime;
+    private EditText mProjectName;
+    private EditText mProjectDescription;
+    private Spinner mProjectTypeSpinner;
+
+    private int mType = 1;
+    private PocketDBHelper ra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mProjectCreator = (EditText) findViewById(R.id.edit_procreator);
+        mProjectStartTime = (EditText) findViewById(R.id.edit_prostarttime);
+        mProjectName = (EditText) findViewById(R.id.edit_project_name);
+        mProjectDescription = (EditText) findViewById(R.id.edit_prodescription);
+        mProjectTypeSpinner = (Spinner) findViewById(R.id.spinner_protype);
+        ra = new PocketDBHelper(this);
+        setupTypeSpinner();
+    }
+
+    private void setupTypeSpinner(){
+        ArrayAdapter typeSpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.array_protype_options, android.R.layout.simple_spinner_item);
+
+        // Specify dropdown layout style - simple list view with 1 item per line
+        typeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        // Apply the adapter to the spinner
+        mProjectTypeSpinner.setAdapter(typeSpinnerAdapter);
+
+        // Set the integer mSelected to the constant values
+        mProjectTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals(getString(R.string.protype_entertaiment))) {
+                        mType = Contract.EventEntry.TYPE_ENTERTAIMENT; // Only
+                    } else if(selection.equals(getString(R.string.protype_family))) {
+                        mType = Contract.EventEntry.TYPE_FAMILY; // All
+                    }
+                    else if(selection.equals(getString(R.string.protype_date))) {
+                        mType = Contract.EventEntry.TYPE_DATE; // All
+                    }
+                    else if(selection.equals(getString(R.string.protype_friend))) {
+                        mType = Contract.EventEntry.TYPE_FRIEND; // All
+                    }
+                    else if(selection.equals(getString(R.string.protype_job))) {
+                        mType = Contract.EventEntry.TYPE_JOB; // All
+                    }
+                    else if(selection.equals(getString(R.string.protype_sport))) {
+                        mType = Contract.EventEntry.TYPE_SPORT; // All
+                    }
+                    else if(selection.equals(getString(R.string.protype_study))) {
+                        mType = Contract.EventEntry.TYPE_STUDY; // All
+                    }
+                    else if(selection.equals(getString(R.string.protype_trip))) {
+                        mType = Contract.EventEntry.TYPE_TRIP; // All
+                    }
+                }
+            }
+
+            // Because AdapterView is an abstract class, onNothingSelected must be defined
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mType = 0; // Only
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_editor.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_newevent, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            // Respond to a click on the "Save" menu option
+            case R.id.action_save:
+                saveEvent();
+                finish();
+                return true;
+            // Respond to a click on the "Delete" menu option
+            case R.id.action_delete:
+                // Do nothing for now
+                return true;
+            // Respond to a click on the "Up" arrow button in the app bar
+            case android.R.id.home:
+                // Navigate back to parent activity (CatalogActivity)
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void saveEvent(){
+        String projectName = mProjectName.getText().toString().trim();
+
+        String projectStartTime = mProjectStartTime.getText().toString().trim();
+        int starttime = Integer.parseInt(projectStartTime);
+
+        String projectDescription = mProjectDescription.getText().toString().trim();
+
+        String projectCreator = mProjectCreator.getText().toString().trim();
+
+        String projectType = mProjectTypeSpinner.getSelectedItem().toString();
+
+        SQLiteDatabase db = ra.getWritableDatabase();
+        ContentValues ra1 = new ContentValues();
+        ra1.put(Contract.ProjectEntry.COLUMN_TITLE,projectName);
+        ra1.put(Contract.ProjectEntry.COLUMN_BEGINTIME,starttime);
+        ra1.put(Contract.ProjectEntry.COLUMN_DESCRIPTION,projectDescription);
+        ra1.put(Contract.ProjectEntry.COLUMN_CREATOR,projectCreator);
+        ra1.put(Contract.ProjectEntry.COLUMN_TYPE,projectType);
+        long rowNewId = db.insert(Contract.ProjectEntry.TABLE_NAME,null,ra1);
+        if(rowNewId == -1)
+            Toast.makeText(getApplicationContext(),"Error with saving events",Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getApplicationContext(),"Event saved with row id:" + rowNewId,Toast.LENGTH_LONG).show();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.wuqi.pocketscheduler.project;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.event.NewEvent;
 
 public class Project_part2 extends AppCompatActivity implements InfoFragment.OnFragmentInteractionListener,ScheduleFragment.OnFragmentInteractionListener,QuestFragment.OnFragmentInteractionListener {
     private InfoFragment mInfo;
@@ -23,12 +25,12 @@ public class Project_part2 extends AppCompatActivity implements InfoFragment.OnF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_part2);
         tabProject2 = (TabLayout) findViewById(R.id.tab_project_2);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_project_part2);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent newEvent = new Intent(Project_part2.this,NewEvent.class);
+                startActivity(newEvent);
             }
         });
         setDefaultFragment();

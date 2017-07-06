@@ -1,11 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/colorPrimary"
     tools:context="com.example.wuqi.pocketscheduler.project.NewProject">
 
 
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="New Project"
+        android:gravity="center"
+        android:textSize="28dp"
+        />
+
+    <ImageView
+        android:layout_height="194dp"
+        android:layout_width="match_parent"
+        android:src="@drawable/twodogs"
+        android:layout_gravity="center">
+
+    </ImageView>
+
+    <!-- Overview category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="OVERVIEW"
+            style="@style/CategoryStyle" />
+
+        <!-- Input fields -->
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="4dp"
+            android:orientation="vertical">
+
+            <!-- Name field -->
+            <EditText
+                android:id="@+id/edit_project_name"
+                android:hint="Project Name"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle" />
+
+            <!-- Breed field -->
+            <EditText
+                android:id="@+id/edit_prodescription"
+                android:hint="Description"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Gender category -->
+    <LinearLayout
+        android:id="@+id/container_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="TYPE"
+            style="@style/CategoryStyle" />
+
+        <!-- Input field -->
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <!-- Type drop-down spinner -->
+            <Spinner
+                android:id="@+id/spinner_protype"
+                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:paddingRight="16dp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Measurement category -->
+    <LinearLayout
+        android:id="@+id/container_prostarttime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="START TIME"
+            style="@style/CategoryStyle" />
+
+        <!-- Input fields -->
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="4dp">
+
+            <!-- start time field -->
+            <EditText
+                android:id="@+id/edit_prostarttime"
+                android:hint="start time"
+                android:inputType="number"
+                style="@style/EditorFieldStyle" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_procreator"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="CREATOR"
+            style="@style/CategoryStyle"/>
+
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="4dp">
+
+            <!-- start time field -->
+            <EditText
+                android:id="@+id/edit_procreator"
+                android:hint="project creator"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
+
