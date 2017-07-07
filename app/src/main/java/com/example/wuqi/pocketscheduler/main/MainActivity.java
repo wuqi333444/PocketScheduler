@@ -12,7 +12,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 
 import com.example.wuqi.pocketscheduler.calender.CalendarFragment;
@@ -28,16 +30,13 @@ import com.example.wuqi.pocketscheduler.project.ProjectParticipatorFragment;
 
 
 public class MainActivity extends AppCompatActivity implements CalendarFragment.OnFragmentInteractionListener, ProjectFragment.OnFragmentInteractionListener,EventsFragment.OnFragmentInteractionListener,ProjectCreatorFragment.OnFragmentInteractionListener,ProjectParticipatorFragment.OnFragmentInteractionListener,EventPreviousFragment.OnFragmentInteractionListener,EventDraftboxFragment.OnFragmentInteractionListener,EventPendingboxFragment.OnFragmentInteractionListener,EventComingSoonFragment.OnFragmentInteractionListener {
-    private Button mTabCalendar;
-    private Button mTabProject;
-    private Button mTabEvents;
     private CalendarFragment mCalendar;
     private ProjectFragment mProject;
     private EventsFragment mEvents;
     private TabLayout allTabs;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private ListView mDrawerList;
+    private LinearLayout mDrawerList;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         setDefaultFragment();
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList = (LinearLayout) findViewById(R.id.id_left_drawer);
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
