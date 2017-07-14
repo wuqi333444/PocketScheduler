@@ -30,9 +30,18 @@ public class EventAdapter extends ArrayAdapter<Event> {
         }
         final Event currentEvent = getItem(position);
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.event_name);
+        TextView timeTextView = (TextView) listItemView.findViewById(R.id.event_time);
         // Get the version name from the current AndroidFlavor object and
         // set this text on the name TextView
         nameTextView.setText(currentEvent.getEvent_name());
+        if(currentEvent.getEvent_startTime()!=null){
+            if(currentEvent.getEvent_endTime()!=null){
+                timeTextView.setText(currentEvent.getEvent_startTime()+"-"+currentEvent.getEvent_endTime());
+            }
+            else{
+                timeTextView.setText(currentEvent.getEvent_startTime());
+            }
+        }
 
         //ImageView imgView = (ImageView) listItemView.findViewById(R.id.miwokImage);
         //currentWords.getImageId();

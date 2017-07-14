@@ -4,12 +4,35 @@
     android:id="@+id/list_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/blue"
     android:minHeight="@dimen/list_item_height"
     android:orientation="horizontal">
 
- <TextView
-     android:id = "@+id/event_name"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/event_time"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textColor = "@color/white"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/event_name"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+    <TextView
+        android:id="@+id/event_participant"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
 
 </LinearLayout>
