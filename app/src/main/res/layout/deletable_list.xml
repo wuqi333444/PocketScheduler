@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:droidicon="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.wuqi.pocketscheduler.event.SwipeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/blue"
+            android:minHeight="@dimen/list_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/event_time"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor = "@color/white"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/event_name"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:fontFamily="casual"
+                android:textStyle="bold"
+                android:textSize="25sp"/>
+            <TextView
+                android:id="@+id/event_participant"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="50dp">
+            <RelativeLayout
+                android:id="@+id/done_button"
+                android:clickable="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/green">
+                <View
+                    android:layout_centerInParent="true"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/ic_done"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/delete_button"
+                android:clickable="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#ff6160">
+                <View
+                    android:layout_centerInParent="true"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/ic_clear_white_24dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/later_button"
+                android:clickable="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#c2c2c2">
+                <View
+                    android:layout_centerInParent="true"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/ic_watch_later_white_24dp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </com.example.wuqi.pocketscheduler.event.SwipeLayout>
+</RelativeLayout>

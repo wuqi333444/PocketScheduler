@@ -75,7 +75,7 @@ public class CalendarFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
         final ArrayList<Event> eventArrayList = new ArrayList<>();
         eventArrayList.add(new Event("Lunch","12:30"));
-        eventArrayList.add(new Event("Dinner"));
+        eventArrayList.add(new Event("Dinner","18:30"));
         eventArrayList.add(new Event("Breakfast","15:00","18:00"));
         eventArrayList.add(new Event("hangout"));
         eventArrayList.add(new Event("basketball"));

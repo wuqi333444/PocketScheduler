@@ -26,7 +26,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         View listItemView = convertView;
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.event_list, parent, false);
+                    R.layout.deletable_list, parent, false);
         }
         final Event currentEvent = getItem(position);
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.event_name);

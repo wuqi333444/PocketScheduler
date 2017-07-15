@@ -73,14 +73,14 @@ public class ProjectCreatorFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View ra =  inflater.inflate(R.layout.fragment_project_creator, container, false);
-        final ArrayList<Creator> word = new ArrayList<>();
-        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016"));
-        word.add(new Creator("REC","Rec Center Basketball","Begin: May 15, 2016"));
-        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 24, 2016"));
-        word.add(new Creator("FD","Fishing Day","Begin: May 30, 2016"));
-        word.add(new Creator("AB","Angel's Birthday","Begin: Jun 4, 2016"));
+        final ArrayList<Creator> list_C = new ArrayList<>();//list_Creator
+        list_C.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016"));
+        list_C.add(new Creator("REC","Rec Center Basketball","Begin: May 15, 2016"));
+        list_C.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 24, 2016"));
+        list_C.add(new Creator("FD","Fishing Day","Begin: May 30, 2016"));
+        list_C.add(new Creator("AB","Angel's Birthday","Begin: Jun 4, 2016"));
         ListView listView = (ListView) ra.findViewById(R.id.list_creator);
-        final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimary);
+        final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),list_C,R.color.colorPrimary);
         listView.setAdapter(simpleAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
