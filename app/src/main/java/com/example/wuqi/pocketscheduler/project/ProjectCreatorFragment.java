@@ -2,6 +2,8 @@ package com.example.wuqi.pocketscheduler.project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.data.Contract;
+import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
+
+import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 
 /**
@@ -73,23 +81,43 @@ public class ProjectCreatorFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View ra =  inflater.inflate(R.layout.fragment_project_creator, container, false);
-        final ArrayList<Creator> list_C = new ArrayList<>();//list_Creator
-        list_C.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016"));
-        list_C.add(new Creator("REC","Rec Center Basketball","Begin: May 15, 2016"));
-        list_C.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 24, 2016"));
-        list_C.add(new Creator("FD","Fishing Day","Begin: May 30, 2016"));
-        list_C.add(new Creator("AB","Angel's Birthday","Begin: Jun 4, 2016"));
+        PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = db.query(Contract.ProjectEntry.TABLE_NAME,null,null,null,null,null,null);
         ListView listView = (ListView) ra.findViewById(R.id.list_creator);
-        final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),list_C,R.color.colorPrimary);
-        listView.setAdapter(simpleAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView adapterView,View view,int position,long l){
-                Creator ra1 = (Creator) simpleAdapter.getItem(position);
-                Intent info = new Intent(getActivity(),Project_part2.class);
-                startActivity(info);
+        try{
+            final ArrayList<Creator> word = new ArrayList<>();
+            int idColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_TITLE);
+            int descriptionColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_DESCRIPTION);
+            int beginColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_BEGINTIME);
+            int creatorColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_CREATOR);
+            int typeColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_TYPE);
+            while(cursor.moveToNext()){
+                final int currentId = cursor.getInt(idColumnIndex);
+                String currentTitle = cursor.getString(nameColumnIndex);
+                String currentType = cursor.getString(typeColumnIndex);
+                String currentDescription = cursor.getString(descriptionColumnIndex);
+                String currentBegin = cursor.getString(beginColumnIndex);
+                String currentCreator = cursor.getString(creatorColumnIndex);
+                word.add(new Creator(currentId,currentTitle,currentBegin,currentCreator,currentType));
+                final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimary);
+                listView.setAdapter(simpleAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView adapterView,View view,int position,long l){
+                        Creator ra1 = (Creator) simpleAdapter.getItem(position);
+                        Intent info = new Intent(getActivity(),Project_part2.class);
+                        info.putExtra("cursorId",position);
+                        startActivity(info);
+                    }
+                });
             }
-        });
+    } finally {
+            // Always close the cursor when you're done reading from it. This releases all its
+            // resources and makes it invalid.
+            cursor.close();
+        }
         return ra;
     }
 

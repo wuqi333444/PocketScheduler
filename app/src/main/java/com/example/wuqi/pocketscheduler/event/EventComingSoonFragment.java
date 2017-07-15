@@ -1,15 +1,21 @@
 package com.example.wuqi.pocketscheduler.event;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.project.Creator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -80,6 +86,8 @@ public class EventComingSoonFragment extends Fragment {
         listView.setAdapter(adapter);
         return rootView;
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

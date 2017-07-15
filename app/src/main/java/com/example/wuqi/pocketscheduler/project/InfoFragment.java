@@ -1,14 +1,29 @@
 package com.example.wuqi.pocketscheduler.project;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.data.Contract;
+import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
+
+import java.util.ArrayList;
+
+import static android.content.Intent.getIntent;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 
 /**
@@ -66,7 +81,38 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false);
+        View ra = inflater.inflate(R.layout.fragment_info, container, false);
+        PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = db.query(Contract.ProjectEntry.TABLE_NAME, null, null, null, null, null, null);
+        Intent intent = getActivity().getIntent();
+        int cursorId = intent.getIntExtra("cursorId",0);
+        try {
+            int idColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_TITLE);
+            int descriptionColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_DESCRIPTION);
+            int beginColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_BEGINTIME);
+            int creatorColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_CREATOR);
+            int typeColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_TYPE);
+            cursor.moveToPosition(cursorId);
+            int currentId = cursor.getInt(idColumnIndex);
+            String currentTitle = cursor.getString(nameColumnIndex);
+            String currentType = cursor.getString(typeColumnIndex);
+            String currentDescription = cursor.getString(descriptionColumnIndex);
+            String currentBegin = cursor.getString(beginColumnIndex);
+            String currentCreator = cursor.getString(creatorColumnIndex);
+            TextView info1 = (TextView) ra.findViewById(R.id.infoCreator);
+            TextView info2 = (TextView) ra.findViewById(R.id.infoDescription);
+            TextView info3 = (TextView) ra.findViewById(R.id.infoMembers);
+            info1.setText(currentCreator);
+            info2.setText(currentDescription);
+            info3.setText(currentType);
+        } finally {
+            // Always close the cursor when you're done reading from it. This releases all its
+            // resources and makes it invalid.
+            cursor.close();
+        }
+        return ra;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -92,6 +138,8 @@ public class InfoFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

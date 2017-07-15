@@ -5,14 +5,34 @@ package com.example.wuqi.pocketscheduler.project;
  */
 public class Creator {
     private String mSName;
+    private int mSName2;
     private String mLName;
     private String mDate;
+    private String mCreator;
+    private String mType;
+
+    public Creator(String mShortName, String mName, String mDDate, String mCreator1, String mType1) {
+        mSName = mShortName;
+        mLName = mName;
+        mDate = mDDate;
+        mCreator = mCreator1;
+        mType = mType1;
+    }
 
     public Creator(String mShortName, String mName, String mDDate) {
         mSName = mShortName;
         mLName = mName;
         mDate = mDDate;
     }
+
+    public Creator(int mShortName, String mName, String mDDate, String mCreator1, String mType1) {
+        mSName2 = mShortName;
+        mLName = mName;
+        mDate = mDDate;
+        mCreator = mCreator1;
+        mType = mType1;
+    }
+
 
     public String getmSName() {
         return mSName;
@@ -23,4 +43,6 @@ public class Creator {
     public String getmDate() {
         return mDate;
     }
+    public String getmCreator(){return mCreator;}
+    public String getmType(){return mType;}
 }

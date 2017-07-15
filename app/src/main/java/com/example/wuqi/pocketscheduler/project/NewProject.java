@@ -19,6 +19,8 @@ import com.example.wuqi.pocketscheduler.R;
 import com.example.wuqi.pocketscheduler.data.Contract;
 import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
+import java.util.Date;
+
 public class NewProject extends AppCompatActivity {
 
     private EditText mProjectCreator;
@@ -141,7 +143,7 @@ public class NewProject extends AppCompatActivity {
         SQLiteDatabase db = ra.getWritableDatabase();
         ContentValues ra1 = new ContentValues();
         ra1.put(Contract.ProjectEntry.COLUMN_TITLE,projectName);
-        ra1.put(Contract.ProjectEntry.COLUMN_BEGINTIME,starttime);
+        ra1.put(Contract.ProjectEntry.COLUMN_BEGINTIME,new Date().getTime());
         ra1.put(Contract.ProjectEntry.COLUMN_DESCRIPTION,projectDescription);
         ra1.put(Contract.ProjectEntry.COLUMN_CREATOR,projectCreator);
         ra1.put(Contract.ProjectEntry.COLUMN_TYPE,projectType);
@@ -149,6 +151,6 @@ public class NewProject extends AppCompatActivity {
         if(rowNewId == -1)
             Toast.makeText(getApplicationContext(),"Error with saving events",Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(getApplicationContext(),"Event saved with row id:" + rowNewId,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Project saved with row id:" + rowNewId,Toast.LENGTH_LONG).show();
     }
 }

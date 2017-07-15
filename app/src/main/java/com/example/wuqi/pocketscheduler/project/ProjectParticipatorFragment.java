@@ -74,7 +74,7 @@ public class ProjectParticipatorFragment extends Fragment {
         // Inflate the layout for this fragment
         View ra = inflater.inflate(R.layout.fragment_project_participator, container, false);
         final ArrayList<Creator> word = new ArrayList<>();
-        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016"));
+        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016","Raphael Ma", "Entertaiment"));
 
         ListView listView = (ListView) ra.findViewById(R.id.list_participator);
         final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimaryDark);

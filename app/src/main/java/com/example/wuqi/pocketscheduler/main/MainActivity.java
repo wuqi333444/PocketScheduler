@@ -1,5 +1,7 @@
 package com.example.wuqi.pocketscheduler.main;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
@@ -15,9 +17,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.example.wuqi.pocketscheduler.calender.CalendarFragment;
+import com.example.wuqi.pocketscheduler.data.Contract;
+import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 import com.example.wuqi.pocketscheduler.event.EventComingSoonFragment;
 import com.example.wuqi.pocketscheduler.event.EventDraftboxFragment;
 import com.example.wuqi.pocketscheduler.event.EventPreviousFragment;
@@ -167,6 +172,8 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 break;
         }
     }
+
+
 
     public void onFragmentInteraction(Uri uri){
 

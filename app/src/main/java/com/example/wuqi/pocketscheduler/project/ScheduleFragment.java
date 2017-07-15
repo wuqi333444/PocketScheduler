@@ -2,6 +2,9 @@ package com.example.wuqi.pocketscheduler.project;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,13 +12,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.data.Contract;
+import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
 import java.util.ArrayList;
+
+import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 
 /**
@@ -75,14 +83,33 @@ public class ScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         View ra = inflater.inflate(R.layout.fragment_schedule, container, false);
         final ArrayList<Creator> word = new ArrayList<>();
-        word.add(new Creator("A","Title: Start","Progress: working on assemble computer"));
-        word.add(new Creator("B","Title: Rec Center Basketball","Progress: 15%"));
-        word.add(new Creator("C","Title: Pocket Scheduler Design","Progress: 20%"));
-        word.add(new Creator("D","Title: Fishing Day","Progress: 78%"));
-        word.add(new Creator("E","Title: Angel's Birthday","Progress: finished"));
+        PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,null,null,null,null,null);
         ListView listView = (ListView) ra.findViewById(R.id.list_schedule);
-        final Custom1Adapter simpleAdapter = new Custom1Adapter(getActivity(),word,R.color.colorPrimary);
-        listView.setAdapter(simpleAdapter);
+        try{
+            int idColumnIndex = cursor.getColumnIndex(Contract.EventEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TITLE);
+            int descriptionColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_DESCRIPTION);
+            int beginColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME);
+            int creatorColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_CREATORID);
+            int typeColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TYPE);
+            while(cursor.moveToNext()){
+                final int currentId = cursor.getInt(idColumnIndex);
+                String currentTitle = cursor.getString(nameColumnIndex);
+                String currentType = cursor.getString(typeColumnIndex);
+                String currentDescription = cursor.getString(descriptionColumnIndex);
+                String currentBegin = cursor.getString(beginColumnIndex);
+                String currentCreator = cursor.getString(creatorColumnIndex);
+                word.add(new Creator(currentId,currentTitle,currentBegin,currentCreator,currentType));
+                final Custom1Adapter simpleAdapter = new Custom1Adapter(getActivity(),word,R.color.colorPrimary);
+                listView.setAdapter(simpleAdapter);
+            }
+        } finally {
+            // Always close the cursor when you're done reading from it. This releases all its
+            // resources and makes it invalid.
+            cursor.close();
+        }
         return ra;
     }
 
@@ -105,8 +132,10 @@ public class ScheduleFragment extends Fragment {
             ra2.setText(ra1.getmSName());
             TextView ra3 = (TextView)listItemView.findViewById(R.id.ra6);
             ra3.setText(ra1.getmLName());
-            TextView ra4 = (TextView) listItemView.findViewById(R.id.ra3);
+            TextView ra4 = (TextView) listItemView.findViewById(R.id.ra4);
             ra4.setText(ra1.getmDate());
+            TextView ra6 = (TextView) listItemView.findViewById(R.id.ra3);
+            ra6.setText(ra1.getmType());
             return listItemView;
         }
     }

@@ -25,17 +25,15 @@ public class PocketDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_PROJECTENTRY =
             "CREATE TABLE " + Contract.ProjectEntry.TABLE_NAME + " ("
                     + Contract.ProjectEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + Contract.ProjectEntry.COLUMN_PROJECTID + " INTEGER NOT NULL,"
                     + Contract.ProjectEntry.COLUMN_DESCRIPTION + " TEXT,"
-                    + Contract.ProjectEntry.COLUMN_BEGINTIME + " TEXT,"
+                    + Contract.ProjectEntry.COLUMN_BEGINTIME + " INTEGER,"
                     + Contract.ProjectEntry.COLUMN_CREATOR + " TEXT,"
-                    + Contract.ProjectEntry.COLUMN_TYPE + "TEXT,"
+                    + Contract.ProjectEntry.COLUMN_TYPE + " TEXT,"
                     + Contract.ProjectEntry.COLUMN_TITLE + " TEXT);";
 
     private static final String SQL_CREATE_EVENTENTRY =
             "CREATE TABLE " + Contract.EventEntry.TABLE_NAME + " ("
                     + Contract.EventEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + Contract.EventEntry.COLUMN_EVENTID + " INTEGER NOT NULL,"
                     + Contract.EventEntry.COLUMN_TITLE + " TEXT NOT NULL,"
                     + Contract.EventEntry.COLUMN_STARTTIME + " INTEGER NOT NULL,"
                     + Contract.EventEntry.COLUMN_ENDTIME + " INTEGER,"
@@ -52,7 +50,6 @@ public class PocketDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_DRAFTBOXENTRY =
             "CREATE TABLE " + Contract.DraftboxEntry.TABLE_NAME + " ("
                     + Contract.DraftboxEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + Contract.DraftboxEntry.COLUMN_EVENTID + " INTEGER NOT NULL,"
                     + Contract.DraftboxEntry.COLUMN_TITLE + " TEXT NOT NULL,"
                     + Contract.DraftboxEntry.COLUMN_STARTTIME + " INTEGER NOT NULL,"
                     + Contract.DraftboxEntry.COLUMN_ENDTIME + " INTEGER,"
@@ -69,7 +66,6 @@ public class PocketDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_MEMBERENTRY =
             "CREATE TABLE " + Contract.MemberEntry.TABLE_NAME + " ("
                     + Contract.MemberEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + Contract.MemberEntry.COLUMN_MEMBERID + " INTEGER NOT NULL,"
                     + Contract.MemberEntry.COLUMN_NAME + " TEXT,"
                     + Contract.MemberEntry.COLUMN_ISFRIEND + " BOOLEAN);";
 
