@@ -2,6 +2,9 @@ package com.example.wuqi.pocketscheduler.event;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,16 +12,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.data.Contract;
+import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 import com.example.wuqi.pocketscheduler.project.Creator;
+import com.example.wuqi.pocketscheduler.project.CustomAdapter;
+import com.example.wuqi.pocketscheduler.project.Project_part2;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+
+import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,15 +85,26 @@ public class EventComingSoonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_events_comingsoon, container, false);
-        final ArrayList<Event> eventArrayList = new ArrayList<>();
-        eventArrayList.add(new Event("Lunch"));
-        eventArrayList.add(new Event("Dinner"));
-        eventArrayList.add(new Event("Breakfast"));
-        eventArrayList.add(new Event("hangout"));
-        eventArrayList.add(new Event("basketball"));
-        EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
-        ListView listView = (ListView) rootView.findViewById(R.id.comingsoon_list);
-        listView.setAdapter(adapter);
+        PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = db.query(Contract.ProjectEntry.TABLE_NAME,null,null,null,null,null,null);
+        try{
+            final ArrayList<Event> eventArrayList = new ArrayList<>();
+            int idColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_TITLE);
+            while(cursor.moveToNext()){
+                final int currentId = cursor.getInt(idColumnIndex);
+                String currentTitle = cursor.getString(nameColumnIndex);
+                eventArrayList.add(new Event(currentTitle));
+                EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
+                ListView listView = (ListView) rootView.findViewById(R.id.comingsoon_list);
+                listView.setAdapter(adapter);
+            }
+        } finally {
+            // Always close the cursor when you're done reading from it. This releases all its
+            // resources and makes it invalid.
+            cursor.close();
+        }
         return rootView;
     }
 
