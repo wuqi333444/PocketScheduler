@@ -45,6 +45,9 @@
             android:label="@string/title_activity_new_event"
             android:parentActivityName= ".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service android:name=".reminder.ReminderService"
+            android:exported="false"/>
+        <receiver android:name=".reminder.ReminderReceiver" />
     </application>
 
 </manifest>

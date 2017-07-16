@@ -1,8 +1,12 @@
 package com.example.wuqi.pocketscheduler.main;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -32,6 +36,7 @@ import com.example.wuqi.pocketscheduler.event.EventPendingboxFragment;
 import com.example.wuqi.pocketscheduler.project.ProjectCreatorFragment;
 import com.example.wuqi.pocketscheduler.project.ProjectFragment;
 import com.example.wuqi.pocketscheduler.project.ProjectParticipatorFragment;
+import com.example.wuqi.pocketscheduler.reminder.ReminderService;
 
 
 public class MainActivity extends AppCompatActivity implements CalendarFragment.OnFragmentInteractionListener, ProjectFragment.OnFragmentInteractionListener,EventsFragment.OnFragmentInteractionListener,ProjectCreatorFragment.OnFragmentInteractionListener,ProjectParticipatorFragment.OnFragmentInteractionListener,EventPreviousFragment.OnFragmentInteractionListener,EventDraftboxFragment.OnFragmentInteractionListener,EventPendingboxFragment.OnFragmentInteractionListener,EventComingSoonFragment.OnFragmentInteractionListener {
@@ -91,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
       //          R.layout.drawer_list_item, mPlanetTitles));
         // Set the list's click listener
        // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        Intent reminderServiceIntent = new Intent(this, ReminderService.class);
+        startService(reminderServiceIntent);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
