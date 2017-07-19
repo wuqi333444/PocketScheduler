@@ -4,8 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+
+import com.example.wuqi.pocketscheduler.data.Contract;
+import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,6 +23,9 @@ public class ReminderService extends Service {
     private AlarmManager alarmManager;
     private PendingIntent pi;
     private Long time;
+
+    private PocketDBHelper dbHelper;
+    private SQLiteDatabase mDb;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -26,16 +34,36 @@ public class ReminderService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        setAlarms();
+        dbHelper = new PocketDBHelper(this);
+        mDb = dbHelper.getWritableDatabase();
+        setAlarms(intent);
         return super.onStartCommand(intent, flags, startId);
     }
 
-    synchronized public void setAlarms(){
-        String title = "new event";
-        String content = "content";
+    public void setAlarms(Intent intent){
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        setAlarm(2017,6,15,21,50,title,content);
+        Cursor result = queryAlarmOrderByTime();
+        if (result == null || result.getCount() == 0){//no alarm currently
+            stopService(intent);
+        } else {
+            Calendar c = Calendar.getInstance();
+            c.setTimeInMillis(result.getLong(result.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME)));
+            String title = result.getString(result.getColumnIndex(Contract.EventEntry.COLUMN_TITLE));
+            String content = result.getString(result.getColumnIndex(Contract.EventEntry.COLUMN_DESCRIPTION));
+            setAlarm(c, title, content);
+        }
 
+    }
+    private Cursor queryAlarmOrderByTime(){
+        String[] args = new String[3];
+        args[0] = Contract.EventEntry.COLUMN_DESCRIPTION;
+        args[1] = Contract.EventEntry.COLUMN_STARTTIME;
+        args[2] = Contract.EventEntry.COLUMN_TITLE;
+        String[] whereCondition = new String[1];
+        whereCondition[0] = String.valueOf(Calendar.getInstance().getTimeInMillis());
+        Cursor cursor = mDb.query(Contract.EventEntry.TABLE_NAME,args,Contract.EventEntry.COLUMN_STARTTIME +"> ?",whereCondition,null,null,Contract.EventEntry.COLUMN_STARTTIME + " desc");
+        System.out.println("cursor size:" + cursor.getCount());
+        return cursor;
     }
 
     /**
@@ -60,6 +88,23 @@ public class ReminderService extends Service {
         c.set(Calendar.DAY_OF_MONTH,day);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.YEAR,year);
+        time = c.getTimeInMillis();
+        long interval = (time - System.currentTimeMillis())/1000;
+        System.out.println("alarm ring after:" + interval + "s");
+        if (time != null) {
+            System.out.println("alarm set");
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pi);    //提交事件，发送给 广播接收器
+        } else {
+            //当提醒时间为空的时候，关闭服务，下次添加提醒时再开启
+            stopService(new Intent(this, ReminderService.class));
+        }
+    }
+    private void setAlarm(Calendar c,String title, String content){
+        Intent startNotificationIntent = new Intent(this,ReminderReceiver.class);
+        startNotificationIntent.putExtra("title",title);
+        startNotificationIntent.putExtra("content",content);
+        //System.out.println("alarm time:" + time + "current time:" + System.currentTimeMillis());
+        pi = PendingIntent.getBroadcast(this, 0, startNotificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);     //设置事件
         time = c.getTimeInMillis();
         long interval = (time - System.currentTimeMillis())/1000;
         System.out.println("alarm ring after:" + interval + "s");
