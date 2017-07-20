@@ -46,10 +46,11 @@ public class ReminderService extends Service {
         if (result == null || result.getCount() == 0){//no alarm currently
             stopService(intent);
         } else {
+            result.moveToFirst();
             Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(result.getLong(result.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME)));
             String title = result.getString(result.getColumnIndex(Contract.EventEntry.COLUMN_TITLE));
             String content = result.getString(result.getColumnIndex(Contract.EventEntry.COLUMN_DESCRIPTION));
+            c.setTimeInMillis(result.getLong(result.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME)));
             setAlarm(c, title, content);
         }
 
