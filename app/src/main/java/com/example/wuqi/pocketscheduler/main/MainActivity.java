@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.design.widget.TabLayout;
@@ -98,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
        // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         Intent reminderServiceIntent = new Intent(this, ReminderService.class);
         startService(reminderServiceIntent);
+        // mDrawerList.setOnItemClickListener(new DrawerItemClickListener())
+        LinearLayout monthlyCal = (LinearLayout) findViewById(R.id.button_calendar_monthly);
+        setmDrawerOnClick(monthlyCal);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -180,10 +184,17 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         }
     }
 
-
-
     public void onFragmentInteraction(Uri uri){
 
     }
 
+    public void setmDrawerOnClick(LinearLayout drawer) {
+        drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View V) {
+                mDrawerLayout.closeDrawers();
+                setCurrentTabFragment(0);//0 is the calendar fragment
+            }
+        });
+    }
 }
