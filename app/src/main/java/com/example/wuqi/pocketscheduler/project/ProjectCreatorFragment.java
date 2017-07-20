@@ -19,9 +19,12 @@ import com.example.wuqi.pocketscheduler.data.Contract;
 import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.R.attr.format;
 import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 

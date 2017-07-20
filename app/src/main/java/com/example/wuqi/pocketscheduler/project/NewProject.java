@@ -1,7 +1,9 @@
 package com.example.wuqi.pocketscheduler.project;
 
+import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,20 +13,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.wuqi.pocketscheduler.R;
 import com.example.wuqi.pocketscheduler.data.Contract;
 import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class NewProject extends AppCompatActivity {
 
     private EditText mProjectCreator;
-    private EditText mProjectStartTime;
+    private DatePicker mProjectStartDate;
+    private TimePicker mProjectStartTime;
     private EditText mProjectName;
     private EditText mProjectDescription;
     private Spinner mProjectTypeSpinner;
@@ -39,7 +48,8 @@ public class NewProject extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mProjectCreator = (EditText) findViewById(R.id.edit_procreator);
-        mProjectStartTime = (EditText) findViewById(R.id.edit_prostarttime);
+        mProjectStartTime = (TimePicker) findViewById(R.id.project_starttime);
+        mProjectStartDate = (DatePicker) findViewById(R.id.project_startdate);
         mProjectName = (EditText) findViewById(R.id.edit_project_name);
         mProjectDescription = (EditText) findViewById(R.id.edit_prodescription);
         mProjectTypeSpinner = (Spinner) findViewById(R.id.spinner_protype);
@@ -128,11 +138,17 @@ public class NewProject extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void saveEvent(){
         String projectName = mProjectName.getText().toString().trim();
 
-        String projectStartTime = mProjectStartTime.getText().toString().trim();
-        int starttime = Integer.parseInt(projectStartTime);
+        int projectStartDateYear = mProjectStartDate.getYear();
+        int projectStartDateMonth = mProjectStartDate.getMonth();
+        int projectStartDateDay = mProjectStartDate.getDayOfMonth();
+        int projectStartTimeHour = mProjectStartTime.getHour();
+        int projectStartTimeMin = mProjectStartTime.getMinute();
+
+        String timeStr = String.valueOf(projectStartDateMonth).toString() + "-" + String.valueOf(projectStartDateDay).toString() + "-" + String.valueOf(projectStartDateYear).toString() + "  " + String.valueOf(projectStartTimeHour).toString() + ":" + String.valueOf(projectStartTimeMin).toString();
 
         String projectDescription = mProjectDescription.getText().toString().trim();
 
@@ -143,7 +159,7 @@ public class NewProject extends AppCompatActivity {
         SQLiteDatabase db = ra.getWritableDatabase();
         ContentValues ra1 = new ContentValues();
         ra1.put(Contract.ProjectEntry.COLUMN_TITLE,projectName);
-        ra1.put(Contract.ProjectEntry.COLUMN_BEGINTIME,new Date().getTime());
+        ra1.put(Contract.ProjectEntry.COLUMN_BEGINTIME, timeStr);
         ra1.put(Contract.ProjectEntry.COLUMN_DESCRIPTION,projectDescription);
         ra1.put(Contract.ProjectEntry.COLUMN_CREATOR,projectCreator);
         ra1.put(Contract.ProjectEntry.COLUMN_TYPE,projectType);

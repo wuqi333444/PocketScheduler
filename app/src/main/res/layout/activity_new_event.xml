@@ -141,29 +141,49 @@
                     android:id="@+id/container_evestarttime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <!-- Label -->
                     <TextView
-                        style="@style/CategoryStyle"
-                        android:text="START TIME" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="START TIME"
+                        android:gravity="center"
+                        />
 
                     <!-- Input fields -->
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:paddingLeft="4dp">
-
-                        <!-- start time field -->
-                        <EditText
-                            android:id="@+id/edit_evestarttime"
-                            style="@style/EditorFieldStyle"
-                            android:hint="start time"
-                            android:inputType="number" />
 
 
-                    </RelativeLayout>
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:id="@+id/eventtime_picker1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                        <DatePicker
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:startYear="2010"
+                            android:endYear="2100"
+                            android:calendarViewShown="false"
+                            android:spinnersShown="true"
+                            android:datePickerMode="spinner"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:id="@+id/event_startdate"/>
+
+                        <TimePicker
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:timePickerMode="spinner"
+                            android:id="@+id/event_starttime"
+                            />
+
+                        </LinearLayout>
+
+
+
                 </LinearLayout>
 
 
@@ -171,27 +191,44 @@
                     android:id="@+id/container_eveendtime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <!-- Label -->
                     <TextView
-                        style="@style/CategoryStyle"
-                        android:text="END TIME" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="END TIME"
+                        />
 
                     <!-- Input fields -->
-                    <RelativeLayout
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:id="@+id/eventtime_picker2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:paddingLeft="4dp">
+                        android:orientation="vertical">
 
-                        <!-- end time field -->
-                        <EditText
-                            android:id="@+id/edit_eveendtime"
-                            style="@style/EditorFieldStyle"
-                            android:hint="end time"
-                            android:inputType="number" />
-                    </RelativeLayout>
+                        <DatePicker
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:startYear="2010"
+                            android:endYear="2100"
+                            android:calendarViewShown="false"
+                            android:spinnersShown="true"
+                            android:datePickerMode="spinner"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:id="@+id/event_enddate"/>
+
+                        <TimePicker
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:timePickerMode="spinner"
+                            android:id="@+id/event_endtime"
+                            />
+
+                    </LinearLayout>
                 </LinearLayout>
 
 

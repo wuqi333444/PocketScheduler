@@ -1,7 +1,9 @@
 package com.example.wuqi.pocketscheduler.event;
 
+import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,23 +13,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.wuqi.pocketscheduler.R;
 import com.example.wuqi.pocketscheduler.data.Contract;
 import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
-import static android.R.attr.name;
-import static android.R.attr.type;
 import com.example.wuqi.pocketscheduler.data.Contract.EventEntry;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class NewEvent extends AppCompatActivity {
     private EditText mEventName;
-    private EditText mEventStartTime;
-    private EditText mEventEndTime;
+    private DatePicker mEventStartDate;
+    private TimePicker mEventStartTime;
+    private DatePicker mEventEndDate;
+    private TimePicker mEventEndTime;
     private EditText mEventDescription;
     private EditText mEventLocation;
     private EditText mEventCreatorId;
@@ -47,8 +58,10 @@ public class NewEvent extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mEventName = (EditText) findViewById(R.id.edit_event_name);
-        mEventStartTime = (EditText) findViewById(R.id.edit_evestarttime);
-        mEventEndTime = (EditText) findViewById(R.id.edit_eveendtime);
+        mEventStartTime = (TimePicker) findViewById(R.id.event_starttime);
+        mEventStartDate = (DatePicker) findViewById(R.id.event_startdate);
+        mEventEndDate = (DatePicker) findViewById(R.id.event_enddate);
+        mEventEndTime = (TimePicker) findViewById(R.id.event_endtime);
         mEventDescription = (EditText) findViewById(R.id.edit_evedescription);
         mEventLocation = (EditText) findViewById(R.id.edit_evelocation);
         mEventCreatorId = (EditText) findViewById(R.id.edit_evecreator);
@@ -171,14 +184,29 @@ public class NewEvent extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
         private void saveEvent(){
             String eventName = mEventName.getText().toString().trim();
 
-            String eventStartTime = mEventStartTime.getText().toString().trim();
-            int starttime = Integer.parseInt(eventStartTime);
+            int eventStartTimeHour = mEventStartTime.getHour();
+            int eventStartTimeMin = mEventStartTime.getMinute();
 
-            String eventEndTime = mEventEndTime.getText().toString().trim();
-            int endtime = Integer.parseInt(eventEndTime);
+            int eventStartDateYear = mEventStartDate.getYear();
+            int eventStartDateMonth = mEventStartDate.getMonth();
+            int eventStartDateDay = mEventStartDate.getDayOfMonth();
+
+            int eventEndTimeHour = mEventEndTime.getHour();
+            int eventEndTimeMin = mEventEndTime.getMinute();
+
+            int eventEndDateYear = mEventEndDate.getYear();
+            int eventEndDateMonth = mEventEndDate.getMonth();
+            int eventEndDateDay = mEventEndDate.getDayOfMonth();
+
+
+        String timeStr1 = String.valueOf(eventStartDateMonth).toString() + "-" + String.valueOf(eventStartDateDay).toString() + "-" + String.valueOf(eventStartDateYear).toString() + "  " + String.valueOf(eventStartTimeHour).toString() + ":" + String.valueOf(eventStartTimeMin).toString();
+
+        String timeStr2 = String.valueOf(eventEndDateMonth).toString() + "-" + String.valueOf(eventEndDateDay).toString() + "-" + String.valueOf(eventEndDateYear).toString() + "  " + String.valueOf(eventEndTimeHour).toString() + ":" + String.valueOf(eventEndTimeMin).toString();
+
 
             String eventDescription = mEventDescription.getText().toString().trim();
 
@@ -193,8 +221,8 @@ public class NewEvent extends AppCompatActivity {
             SQLiteDatabase db = ra.getWritableDatabase();
             ContentValues ra1 = new ContentValues();
             ra1.put(EventEntry.COLUMN_TITLE,eventName);
-            ra1.put(EventEntry.COLUMN_STARTTIME,starttime);
-            ra1.put(EventEntry.COLUMN_ENDTIME,endtime);
+            ra1.put(EventEntry.COLUMN_STARTTIME, timeStr1);
+            ra1.put(EventEntry.COLUMN_ENDTIME, timeStr2);
             ra1.put(EventEntry.COLUMN_DESCRIPTION,eventDescription);
             ra1.put(EventEntry.COLUMN_LOCATION,eventLocation);
             ra1.put(EventEntry.COLUMN_CREATORID,eventCreator);

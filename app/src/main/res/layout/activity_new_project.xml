@@ -25,6 +25,14 @@
 
     </ImageView>
 
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
     <!-- Overview category -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,30 +99,52 @@
 
     <!-- Measurement category -->
     <LinearLayout
-        android:id="@+id/container_prostarttime"
+        android:id="@+id/container_evestarttime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <!-- Label -->
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="START TIME"
-            style="@style/CategoryStyle" />
+            android:gravity="center"
+            />
 
         <!-- Input fields -->
-        <RelativeLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
 
-            <!-- start time field -->
-            <EditText
-                android:id="@+id/edit_prostarttime"
-                android:hint="start time"
-                android:inputType="number"
-                style="@style/EditorFieldStyle" />
-        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:id="@+id/projecttime_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:startYear="2010"
+                android:endYear="2100"
+                android:calendarViewShown="false"
+                android:spinnersShown="true"
+                android:datePickerMode="spinner"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/project_startdate"/>
+
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                android:id="@+id/project_starttime"
+                />
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -142,6 +172,8 @@
         </RelativeLayout>
 
     </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
 
