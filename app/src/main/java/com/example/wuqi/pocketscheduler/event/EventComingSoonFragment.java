@@ -87,11 +87,11 @@ public class EventComingSoonFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_events_comingsoon, container, false);
         PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        Cursor cursor = db.query(Contract.ProjectEntry.TABLE_NAME,null,null,null,null,null,null);
+        Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,null,null,null,null,null);
         try{
             final ArrayList<Event> eventArrayList = new ArrayList<>();
-            int idColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(Contract.ProjectEntry.COLUMN_TITLE);
+            int idColumnIndex = cursor.getColumnIndex(Contract.EventEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TITLE);
             while(cursor.moveToNext()){
                 final int currentId = cursor.getInt(idColumnIndex);
                 String currentTitle = cursor.getString(nameColumnIndex);
