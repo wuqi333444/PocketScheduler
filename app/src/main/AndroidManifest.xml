@@ -25,6 +25,15 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
+
+        <receiver android:name=".event.EventAdapter$Receiver">
+            <intent-filter>
+                <action android:name="com.example.receiver.ACTION"/>
+            </intent-filter>
+        </receiver>
+
+
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login">
@@ -34,6 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".project.Project_part2"
             android:label="@string/title_activity_project_part2"
