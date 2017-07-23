@@ -57,6 +57,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
                 SQLiteDatabase db = ra.getWritableDatabase();
                 db.delete(Contract.EventEntry.TABLE_NAME,Contract.EventEntry._ID + "=" + currentEvent.getEvent_id() ,null);
                 System.out.println("DELETE id = " + currentEvent.getEvent_id());
+                Toast.makeText(getContext(),"Event with ID: " + currentEvent.getEvent_id() + "is removed",Toast.LENGTH_LONG).show();
             }
         });
         // Get the version name from the current AndroidFlavor object and

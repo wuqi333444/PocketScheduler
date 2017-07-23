@@ -26,14 +26,6 @@
             <!-- </intent-filter> -->
         </activity>
 
-
-        <receiver android:name=".event.EventAdapter$Receiver">
-            <intent-filter>
-                <action android:name="com.example.receiver.ACTION"/>
-            </intent-filter>
-        </receiver>
-
-
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login">

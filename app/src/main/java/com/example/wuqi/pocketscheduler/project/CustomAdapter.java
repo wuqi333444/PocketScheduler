@@ -1,5 +1,7 @@
 package com.example.wuqi.pocketscheduler.project;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.support.annotation.NonNull;
 import android.app.Activity;
@@ -7,16 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wuqi.pocketscheduler.R;
+import com.example.wuqi.pocketscheduler.data.Contract;
+import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
 import java.util.ArrayList;
+
+import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 /**
  * Created by RapHaeL on 2017/5/24.
  */
 
 public class CustomAdapter extends ArrayAdapter {
+    PocketDBHelper ra = new PocketDBHelper(getContext());
     private int backgroundColor;
     public CustomAdapter(Activity context, ArrayList<Creator> creator, int mbackgroundColor) {
         super(context, 0,creator);
@@ -26,6 +34,23 @@ public class CustomAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
+        if(listItemView == null) {
+            listItemView = LayoutInflater.from(getContext()).inflate(
+                    R.layout.project_events, parent, false);
+        }
+        final Creator currentProject = (Creator) getItem(position);
+        View mDeleteEvent = (View) listItemView.findViewById(R.id.delete_button);
+        View mDoneEvent = (View) listItemView.findViewById(R.id.done_button);
+        View mDelayEvent = (View) listItemView.findViewById(R.id.later_button);
+        mDeleteEvent.setOnClickListener(new AdapterView.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                SQLiteDatabase db = ra.getWritableDatabase();
+                db.delete(Contract.ProjectEntry.TABLE_NAME,Contract.ProjectEntry._ID + "=" + currentProject.getProjectId() ,null);
+                System.out.println("DELETE id = " + currentProject.getProjectId());
+                Toast.makeText(getContext(),"Project with ID: " + currentProject.getProjectId() + "is removed",Toast.LENGTH_LONG).show();
+            }
+        });
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.project_events, parent, false);

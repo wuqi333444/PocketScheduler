@@ -39,6 +39,7 @@ public class Creator {
     public String getmSName() {
         return mSName;
     }
+    public int getProjectId(){return mSName2;}
     public String getmLName() {
         return mLName;
     }
