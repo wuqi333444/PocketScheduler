@@ -149,6 +149,16 @@ public class NewProject extends AppCompatActivity {
         int projectStartTimeMin = mProjectStartTime.getMinute();
 
         String timeStr = String.valueOf(projectStartDateMonth).toString() + "-" + String.valueOf(projectStartDateDay).toString() + "-" + String.valueOf(projectStartDateYear).toString() + "  " + String.valueOf(projectStartTimeHour).toString() + ":" + String.valueOf(projectStartTimeMin).toString();
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+        format.setTimeZone(TimeZone.getDefault());
+        Date dateTime = null;
+        try{
+            dateTime = (Date) format.parse(timeStr);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        long newTimeStr = dateTime.getTime();
+
 
         String projectDescription = mProjectDescription.getText().toString().trim();
 
@@ -159,7 +169,7 @@ public class NewProject extends AppCompatActivity {
         SQLiteDatabase db = ra.getWritableDatabase();
         ContentValues ra1 = new ContentValues();
         ra1.put(Contract.ProjectEntry.COLUMN_TITLE,projectName);
-        ra1.put(Contract.ProjectEntry.COLUMN_BEGINTIME, timeStr);
+        ra1.put(Contract.ProjectEntry.COLUMN_BEGINTIME, newTimeStr);
         ra1.put(Contract.ProjectEntry.COLUMN_DESCRIPTION,projectDescription);
         ra1.put(Contract.ProjectEntry.COLUMN_CREATOR,projectCreator);
         ra1.put(Contract.ProjectEntry.COLUMN_TYPE,projectType);

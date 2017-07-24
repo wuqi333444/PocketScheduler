@@ -101,9 +101,19 @@ public class ProjectCreatorFragment extends Fragment {
                 String currentTitle = cursor.getString(nameColumnIndex);
                 String currentType = cursor.getString(typeColumnIndex);
                 String currentDescription = cursor.getString(descriptionColumnIndex);
-                String currentBegin = cursor.getString(beginColumnIndex);
+                long currentBegin = cursor.getLong(beginColumnIndex);
+                Date dateOld = new Date(currentBegin);
+                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+                String dateSecond = formatter.format(dateOld);
+                Date currentStartTime = null;
+                try {
+                    currentStartTime = formatter.parse(dateSecond);
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+
                 String currentCreator = cursor.getString(creatorColumnIndex);
-                word.add(new Creator(currentId,currentTitle,currentBegin,currentCreator,currentType));
+                word.add(new Creator(currentId,currentTitle,currentStartTime,currentCreator,currentType));
                 final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimary);
                 listView.setAdapter(simpleAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){

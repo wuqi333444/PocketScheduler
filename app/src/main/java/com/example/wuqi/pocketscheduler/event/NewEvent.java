@@ -3,6 +3,7 @@ package com.example.wuqi.pocketscheduler.event;
 import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.TimeZoneFormat;
 import android.os.Build;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
+import static android.R.attr.format;
 
 public class NewEvent extends AppCompatActivity {
     private EditText mEventName;
@@ -204,9 +207,23 @@ public class NewEvent extends AppCompatActivity {
 
 
         String timeStr1 = String.valueOf(eventStartDateMonth).toString() + "-" + String.valueOf(eventStartDateDay).toString() + "-" + String.valueOf(eventStartDateYear).toString() + "  " + String.valueOf(eventStartTimeHour).toString() + ":" + String.valueOf(eventStartTimeMin).toString();
-
+        SimpleDateFormat format1 = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+        format1.setTimeZone(TimeZone.getDefault());
+        Date dateTime1 = null;
+        try{
+        dateTime1 = (Date) format1.parse(timeStr1);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        long newTimeStr1 = dateTime1.getTime();
         String timeStr2 = String.valueOf(eventEndDateMonth).toString() + "-" + String.valueOf(eventEndDateDay).toString() + "-" + String.valueOf(eventEndDateYear).toString() + "  " + String.valueOf(eventEndTimeHour).toString() + ":" + String.valueOf(eventEndTimeMin).toString();
-
+        Date dateTime2 = null;
+        try{
+            dateTime2 = (Date) format1.parse(timeStr2);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        long newTimeStr2 = dateTime2.getTime();
 
             String eventDescription = mEventDescription.getText().toString().trim();
 
@@ -221,8 +238,8 @@ public class NewEvent extends AppCompatActivity {
             SQLiteDatabase db = ra.getWritableDatabase();
             ContentValues ra1 = new ContentValues();
             ra1.put(EventEntry.COLUMN_TITLE,eventName);
-            ra1.put(EventEntry.COLUMN_STARTTIME, timeStr1);
-            ra1.put(EventEntry.COLUMN_ENDTIME, timeStr2);
+            ra1.put(EventEntry.COLUMN_STARTTIME, newTimeStr1);
+            ra1.put(EventEntry.COLUMN_ENDTIME, newTimeStr2);
             ra1.put(EventEntry.COLUMN_DESCRIPTION,eventDescription);
             ra1.put(EventEntry.COLUMN_LOCATION,eventLocation);
             ra1.put(EventEntry.COLUMN_CREATORID,eventCreator);

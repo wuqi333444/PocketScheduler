@@ -12,14 +12,24 @@ public class Creator {
     private String mDate;
     private String mCreator;
     private String mType;
+    private Date mDate2;
 
-    public Creator(String mShortName, String mName, String mDDate, String mCreator1, String mType1) {
+    public Creator(String mShortName, String mName, Date mDDate, String mCreator1, String mType1) {
         mSName = mShortName;
+        mLName = mName;
+        mDate2 = mDDate;
+        mCreator = mCreator1;
+        mType = mType1;
+    }
+
+    public Creator(int mShortName, String mName, String mDDate, String mCreator1, String mType1) {
+        mSName2 = mShortName;
         mLName = mName;
         mDate = mDDate;
         mCreator = mCreator1;
         mType = mType1;
     }
+
 
     public Creator(String mShortName, String mName, String mDDate) {
         mSName = mShortName;
@@ -27,10 +37,10 @@ public class Creator {
         mDate = mDDate;
     }
 
-    public Creator(int mShortName, String mName, String mDDate, String mCreator1, String mType1) {
+    public Creator(int mShortName, String mName, Date mDate22, String mCreator1, String mType1) {
         mSName2 = mShortName;
         mLName = mName;
-        mDate = mDDate;
+        mDate2 = mDate22;
         mCreator = mCreator1;
         mType = mType1;
     }
@@ -48,4 +58,5 @@ public class Creator {
     }
     public String getmCreator(){return mCreator;}
     public String getmType(){return mType;}
+    public Date getmDate2(){return mDate2;}
 }

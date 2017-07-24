@@ -61,7 +61,7 @@ public class CustomAdapter extends ArrayAdapter {
         TextView ra3 = (TextView)listItemView.findViewById(R.id.ra6);
         ra3.setText(ra1.getmLName());
         TextView ra4 = (TextView) listItemView.findViewById(R.id.ra4);
-        ra4.setText(ra1.getmDate());
+        ra4.setText(ra1.getmDate2().toString());
         TextView ra5 = (TextView) listItemView.findViewById(R.id.ra2);
         ra5.setText(ra1.getmCreator());
         TextView ra6 = (TextView) listItemView.findViewById(R.id.ra3);

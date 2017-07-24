@@ -11,10 +11,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.example.wuqi.pocketscheduler.R;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.TimeZone;
 
 
 /**
@@ -74,7 +79,16 @@ public class ProjectParticipatorFragment extends Fragment {
         // Inflate the layout for this fragment
         View ra = inflater.inflate(R.layout.fragment_project_participator, container, false);
         final ArrayList<Creator> word = new ArrayList<>();
-        word.add(new Creator("PSD","Pocket Scheduler Design","Begin: May 6, 2016","Raphael Ma", "Entertaiment"));
+        Date date = null;
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+        format.setTimeZone(TimeZone.getDefault());
+        try {
+            date = format.parse("5-6-2016 07:18");
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        word.add(new Creator("PSD","Pocket Scheduler Design",date,"Raphael Ma", "Entertaiment"));
 
         ListView listView = (ListView) ra.findViewById(R.id.list_participator);
         final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimaryDark);
