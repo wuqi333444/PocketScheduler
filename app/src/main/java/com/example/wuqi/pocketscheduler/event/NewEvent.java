@@ -2,6 +2,7 @@ package com.example.wuqi.pocketscheduler.event;
 
 import android.annotation.TargetApi;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.TimeZoneFormat;
 import android.os.Build;
@@ -26,11 +27,14 @@ import com.example.wuqi.pocketscheduler.data.Contract;
 import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
 import com.example.wuqi.pocketscheduler.data.Contract.EventEntry;
+import com.example.wuqi.pocketscheduler.reminder.ReminderService;
+import com.example.wuqi.pocketscheduler.utils.TimeConvertUtils;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -205,26 +209,10 @@ public class NewEvent extends AppCompatActivity {
             int eventEndDateMonth = mEventEndDate.getMonth();
             int eventEndDateDay = mEventEndDate.getDayOfMonth();
 
-
-        String timeStr1 = String.valueOf(eventStartDateMonth).toString() + "-" + String.valueOf(eventStartDateDay).toString() + "-" + String.valueOf(eventStartDateYear).toString() + "  " + String.valueOf(eventStartTimeHour).toString() + ":" + String.valueOf(eventStartTimeMin).toString();
-        SimpleDateFormat format1 = new SimpleDateFormat("MM-dd-yyyy HH:mm");
-        format1.setTimeZone(TimeZone.getDefault());
-        Date dateTime1 = null;
-        try{
-        dateTime1 = (Date) format1.parse(timeStr1);
-        }catch (ParseException e){
-            e.printStackTrace();
-        }
-        long newTimeStr1 = dateTime1.getTime();
-        String timeStr2 = String.valueOf(eventEndDateMonth).toString() + "-" + String.valueOf(eventEndDateDay).toString() + "-" + String.valueOf(eventEndDateYear).toString() + "  " + String.valueOf(eventEndTimeHour).toString() + ":" + String.valueOf(eventEndTimeMin).toString();
-        Date dateTime2 = null;
-        try{
-            dateTime2 = (Date) format1.parse(timeStr2);
-        }catch (ParseException e){
-            e.printStackTrace();
-        }
-        long newTimeStr2 = dateTime2.getTime();
-
+            String newTimeStr1 = String.valueOf(TimeConvertUtils.dateToLongConverter(eventStartDateYear,eventStartDateMonth,eventStartDateDay,eventStartTimeHour,eventStartTimeMin));
+            String newTimeStr2 = String.valueOf(TimeConvertUtils.dateToLongConverter(eventEndDateYear,eventEndDateMonth,eventEndDateDay,eventEndTimeHour,eventEndTimeMin));
+            System.out.println("alarm new time string1 " + newTimeStr1);
+            System.out.println("alarm new time string2 " + newTimeStr2);
             String eventDescription = mEventDescription.getText().toString().trim();
 
             String eventLocation = mEventLocation.getText().toString().trim();
@@ -248,7 +236,10 @@ public class NewEvent extends AppCompatActivity {
             long rowNewId = db.insert(EventEntry.TABLE_NAME,null,ra1);
             if(rowNewId == -1)
                 Toast.makeText(getApplicationContext(),"Error with saving events",Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(getApplicationContext(),"Event saved with row id:" + rowNewId,Toast.LENGTH_LONG).show();
+            else {
+                Toast.makeText(getApplicationContext(), "Event saved with row id:" + rowNewId, Toast.LENGTH_LONG).show();
+                Intent reminderServiceIntent = new Intent(this, ReminderService.class);
+                startService(reminderServiceIntent);
+            }
         }
 }

@@ -50,6 +50,7 @@ public class ReminderService extends Service {
             Calendar c = Calendar.getInstance();
             String title = result.getString(result.getColumnIndex(Contract.EventEntry.COLUMN_TITLE));
             String content = result.getString(result.getColumnIndex(Contract.EventEntry.COLUMN_DESCRIPTION));
+            System.out.println("alarm actual time:" + result.getLong(result.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME)));
             c.setTimeInMillis(result.getLong(result.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME)));
             setAlarm(c, title, content);
         }
@@ -62,7 +63,8 @@ public class ReminderService extends Service {
         args[2] = Contract.EventEntry.COLUMN_TITLE;
         String[] whereCondition = new String[1];
         whereCondition[0] = String.valueOf(Calendar.getInstance().getTimeInMillis());
-        Cursor cursor = mDb.query(Contract.EventEntry.TABLE_NAME,args,Contract.EventEntry.COLUMN_STARTTIME +"> ?",whereCondition,null,null,Contract.EventEntry.COLUMN_STARTTIME + " desc");
+        System.out.println("alarm where time:" + whereCondition[0]);
+        Cursor cursor = mDb.query(Contract.EventEntry.TABLE_NAME,args,Contract.EventEntry.COLUMN_STARTTIME +">?",whereCondition,null,null,Contract.EventEntry.COLUMN_STARTTIME);
         System.out.println("cursor size:" + cursor.getCount());
         return cursor;
     }

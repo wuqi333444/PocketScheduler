@@ -30,7 +30,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         showNormal(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setClass(context, ReminderService.class);
-        //context.startService(intent);  //回调Service,同一个Service只会启动一个，所以直接再次启动Service，会重置开启新的提醒，
+        context.startService(intent);  //回调Service,同一个Service只会启动一个，所以直接再次启动Service，会重置开启新的提醒，
     }    /**     * 发送通知     */
     private void showNormal(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);//这里是点击Notification 跳转的界面，可以自己选择
