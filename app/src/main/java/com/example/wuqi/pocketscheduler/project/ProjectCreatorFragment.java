@@ -116,15 +116,15 @@ public class ProjectCreatorFragment extends Fragment {
                 word.add(new Creator(currentId,currentTitle,currentStartTime,currentCreator,currentType));
                 final CustomAdapter simpleAdapter = new CustomAdapter(getActivity(),word,R.color.colorPrimary);
                 listView.setAdapter(simpleAdapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                    @Override
-                    public void onItemClick(AdapterView adapterView,View view,int position,long l){
-                        Creator ra1 = (Creator) simpleAdapter.getItem(position);
-                        Intent info = new Intent(getActivity(),Project_part2.class);
-                        info.putExtra("cursorId",position);
-                        startActivity(info);
-                    }
-                });
+//                listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//                    @Override
+//                    public void onItemClick(AdapterView adapterView,View view,int position,long l){
+//                        Creator ra1 = (Creator) simpleAdapter.getItem(position);
+//                        Intent info = new Intent(getActivity(),Project_part2.class);
+//                        info.putExtra("cursorId",position);
+//                        startActivity(info);
+//                    }
+//                });
             }
     } finally {
             // Always close the cursor when you're done reading from it. This releases all its

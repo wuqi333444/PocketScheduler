@@ -33,6 +33,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:id="@+id/project_clickpart2"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
@@ -112,7 +113,8 @@
 
         <LinearLayout
             android:layout_width="150dp"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:descendantFocusability="blocksDescendants">
 
             <RelativeLayout
                 android:id="@+id/done_button"

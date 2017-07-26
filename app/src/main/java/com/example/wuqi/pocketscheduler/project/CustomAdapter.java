@@ -1,5 +1,6 @@
 package com.example.wuqi.pocketscheduler.project;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
 import java.util.ArrayList;
 
+import static com.example.wuqi.pocketscheduler.R.id.project_part2_content;
 import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 /**
@@ -32,7 +34,7 @@ public class CustomAdapter extends ArrayAdapter {
     }
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
@@ -42,6 +44,17 @@ public class CustomAdapter extends ArrayAdapter {
         View mDeleteEvent = (View) listItemView.findViewById(R.id.delete_button);
         View mDoneEvent = (View) listItemView.findViewById(R.id.done_button);
         View mDelayEvent = (View) listItemView.findViewById(R.id.later_button);
+        View mClickEvent = (View) listItemView.findViewById(R.id.project_clickpart2);
+        mClickEvent.setOnClickListener(new AdapterView.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent info = new Intent(getContext(),Project_part2.class);
+                info.putExtra("cursorId",position);
+                getContext().startActivity(info);
+            }
+        });
+
+
         mDeleteEvent.setOnClickListener(new AdapterView.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -51,10 +64,6 @@ public class CustomAdapter extends ArrayAdapter {
                 Toast.makeText(getContext(),"Project with ID: " + currentProject.getProjectId() + "is removed",Toast.LENGTH_LONG).show();
             }
         });
-        if(listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.project_events, parent, false);
-        }
         Creator ra1 = (Creator) getItem(position);
         TextView ra2 = (TextView)listItemView.findViewById(R.id.ra1);
         ra2.setText(ra1.getmSName());
