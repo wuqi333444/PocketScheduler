@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.example.wuqi.pocketscheduler.R;
 import com.example.wuqi.pocketscheduler.data.Contract;
 import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -27,9 +29,11 @@ import java.util.ArrayList;
  */
 
 public class EventAdapter extends ArrayAdapter<Event> {
-    PocketDBHelper ra = new PocketDBHelper(getContext());
+    private PocketDBHelper ra = new PocketDBHelper(getContext());
+    private ArrayList<Event> arrayList;
     public EventAdapter(Activity context, ArrayList<Event> e){
         super(context,0,e);
+        arrayList = e;
     }
 
 
@@ -59,6 +63,10 @@ public class EventAdapter extends ArrayAdapter<Event> {
                 db.delete(Contract.EventEntry.TABLE_NAME,Contract.EventEntry._ID + "=" + currentEvent.getEvent_id() ,null);
                 System.out.println("DELETE id = " + currentEvent.getEvent_id());
                 Toast.makeText(getContext(),"Event with ID: " + currentEvent.getEvent_id() + "is removed",Toast.LENGTH_LONG).show();
+                //Below is used to refresh the listview after an item is deleted.
+                arrayList.clear();
+                arrayList = addNew(arrayList);
+                notifyDataSetChanged();
             }
         });
         nameTextView.setText(currentEvent.getEvent_name());
@@ -70,19 +78,30 @@ public class EventAdapter extends ArrayAdapter<Event> {
                 timeTextView.setText(currentEvent.getEvent_startTime());
             }
         }
-
-        //ImageView imgView = (ImageView) listItemView.findViewById(R.id.miwokImage);
-        //currentWords.getImageId();
-      //  if(currentWords.isImageProvided() ) {
-    //        imgView.setImageResource(currentWords.getImageId());
-//        }
-//        else{
-//            imgView.setVisibility(View.GONE);
-//        }
-//        LinearLayout pt = (LinearLayout) nameTextView.getParent();
-        //This show how to get color from colorId
-//        pt.setBackgroundColor(ContextCompat.getColor(getContext(),colorId));
         return listItemView;
+    }
+    private ArrayList<Event> addNew(ArrayList eventArrayList){
+        PocketDBHelper mDbHelper = new PocketDBHelper(getContext());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,null,null,null,null,null);
+        try{
+
+            int idColumnIndex = cursor.getColumnIndex(Contract.EventEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TITLE);
+            int startColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME);
+            int endColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_ENDTIME);
+            while(cursor.moveToNext()){
+                int currentId = cursor.getInt(idColumnIndex);
+                String currentTitle = cursor.getString(nameColumnIndex);
+                long start_time = cursor.getLong(startColumnIndex);
+                long end_time = cursor.getLong(endColumnIndex);
+                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+                eventArrayList.add(new Event(currentTitle,formatter.format(start_time),formatter.format(end_time),currentId));
+            }
+        }
+        finally{
+            return eventArrayList;
+        }
     }
 }
 

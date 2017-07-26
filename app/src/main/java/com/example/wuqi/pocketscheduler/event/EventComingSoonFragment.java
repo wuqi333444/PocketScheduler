@@ -25,6 +25,7 @@ import com.example.wuqi.pocketscheduler.project.Creator;
 import com.example.wuqi.pocketscheduler.project.CustomAdapter;
 import com.example.wuqi.pocketscheduler.project.Project_part2;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import static android.R.attr.onClick;
 import static android.media.CamcorderProfile.get;
 import static com.example.wuqi.pocketscheduler.R.id.list;
 import static com.example.wuqi.pocketscheduler.R.id.ra;
+import static java.util.Collections.addAll;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -114,8 +116,8 @@ public class EventComingSoonFragment extends Fragment {
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
-            EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
-            ListView listView = (ListView) rootView.findViewById(R.id.comingsoon_list);
+            final EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
+            final ListView listView = (ListView) rootView.findViewById(R.id.comingsoon_list);
             listView.setAdapter(adapter);
             cursor.close();
         }

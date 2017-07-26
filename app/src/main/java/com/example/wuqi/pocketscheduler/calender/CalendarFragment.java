@@ -92,12 +92,10 @@ public class CalendarFragment extends Fragment {
                 PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
                 final SQLiteDatabase db = mDbHelper.getReadableDatabase();
                 SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
-                //Toast.makeText(getContext(),Integer.toString(year) + Integer.toString(month)+Integer.toString(dayOfMonth),Toast.LENGTH_SHORT).show();
                 long tmp_start = TimeConvertUtils.dateToLongConverter(year,month,dayOfMonth,0,0);
                 long tmp_end = TimeConvertUtils.dateToLongConverter(year,month,dayOfMonth,24,0);
-                //Toast.makeText(getContext(),formatter.format(tmp_start),Toast.LENGTH_SHORT).show();
+                //query the data at the selected day.
                 Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,Contract.EventEntry.COLUMN_STARTTIME + ">=? AND "+ Contract.EventEntry.COLUMN_ENDTIME + "<=?",new String[]{Long.toString(tmp_start),Long.toString(tmp_end)},null,null,null);
-//                Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,null,null,null,null,null);
                 final ArrayList<Event> eventArrayList = new ArrayList<>();
 
                 try{

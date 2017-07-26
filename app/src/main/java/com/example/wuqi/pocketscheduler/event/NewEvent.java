@@ -3,9 +3,11 @@ package com.example.wuqi.pocketscheduler.event;
 import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.TimeZoneFormat;
 import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +36,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -241,5 +244,6 @@ public class NewEvent extends AppCompatActivity {
                 Intent reminderServiceIntent = new Intent(this, ReminderService.class);
                 startService(reminderServiceIntent);
             }
+
         }
 }

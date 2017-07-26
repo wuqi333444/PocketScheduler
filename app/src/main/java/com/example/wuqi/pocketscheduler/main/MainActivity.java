@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import com.example.wuqi.pocketscheduler.calender.CalendarFragment;
 import com.example.wuqi.pocketscheduler.data.Contract;
 import com.example.wuqi.pocketscheduler.data.PocketDBHelper;
+import com.example.wuqi.pocketscheduler.event.Event;
 import com.example.wuqi.pocketscheduler.event.EventComingSoonFragment;
 import com.example.wuqi.pocketscheduler.event.EventDraftboxFragment;
 import com.example.wuqi.pocketscheduler.event.EventPreviousFragment;
@@ -38,6 +40,11 @@ import com.example.wuqi.pocketscheduler.project.ProjectCreatorFragment;
 import com.example.wuqi.pocketscheduler.project.ProjectFragment;
 import com.example.wuqi.pocketscheduler.project.ProjectParticipatorFragment;
 import com.example.wuqi.pocketscheduler.reminder.ReminderService;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 
 public class MainActivity extends AppCompatActivity implements CalendarFragment.OnFragmentInteractionListener, ProjectFragment.OnFragmentInteractionListener,EventsFragment.OnFragmentInteractionListener,ProjectCreatorFragment.OnFragmentInteractionListener,ProjectParticipatorFragment.OnFragmentInteractionListener,EventPreviousFragment.OnFragmentInteractionListener,EventDraftboxFragment.OnFragmentInteractionListener,EventPendingboxFragment.OnFragmentInteractionListener,EventComingSoonFragment.OnFragmentInteractionListener {
