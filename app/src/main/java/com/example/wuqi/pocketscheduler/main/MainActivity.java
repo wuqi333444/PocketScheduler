@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 break;
         }
     }
-
     public void onFragmentInteraction(Uri uri){
 
     }

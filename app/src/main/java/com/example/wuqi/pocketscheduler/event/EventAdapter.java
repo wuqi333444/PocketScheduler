@@ -45,6 +45,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.event_name);
         TextView timeTextView = (TextView) listItemView.findViewById(R.id.event_time);
 
+
         View mDeleteEvent = (View) listItemView.findViewById(R.id.delete_button);
         View mDoneEvent = (View) listItemView.findViewById(R.id.done_button);
         View mDelayEvent = (View) listItemView.findViewById(R.id.later_button);
@@ -60,8 +61,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
                 Toast.makeText(getContext(),"Event with ID: " + currentEvent.getEvent_id() + "is removed",Toast.LENGTH_LONG).show();
             }
         });
-        // Get the version name from the current AndroidFlavor object and
-        // set this text on the name TextView
         nameTextView.setText(currentEvent.getEvent_name());
         if(currentEvent.getEvent_startTime()!=null){
             if(currentEvent.getEvent_endTime()!=null){

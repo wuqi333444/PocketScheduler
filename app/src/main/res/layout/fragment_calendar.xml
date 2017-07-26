@@ -12,16 +12,16 @@
         android:orientation="vertical">
 
         <CalendarView
+            android:id="@+id/calendarView"
             android:layout_width="fill_parent"
             android:layout_height="297dp"
-            app:theme="@style/calendarTheme">
-        </CalendarView>
+            app:theme="@style/calendarTheme"/>
 
         <include
-            android:id = "@+id/id_eventlist"
+            android:id="@+id/id_eventlist"
+            layout="@layout/list"
             android:layout_width="match_parent"
-            android:layout_height = "match_parent"
-            layout = "@layout/list" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </FrameLayout>

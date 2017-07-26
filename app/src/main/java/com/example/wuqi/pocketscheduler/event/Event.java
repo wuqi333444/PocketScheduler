@@ -25,6 +25,12 @@ public class Event {
         event_startTime = startTime;
         event_endTime = endTime;
     }
+    public Event(String eventName,String startTime, String endTime, int eventId){
+        event_name = eventName;
+        event_startTime = startTime;
+        event_endTime = endTime;
+        event_id = eventId;
+    }
     public Event(String eventName, String startTime){
         event_name = eventName;
         event_startTime = startTime;

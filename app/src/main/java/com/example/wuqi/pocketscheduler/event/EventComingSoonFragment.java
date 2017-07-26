@@ -26,6 +26,7 @@ import com.example.wuqi.pocketscheduler.project.CustomAdapter;
 import com.example.wuqi.pocketscheduler.project.Project_part2;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,22 +96,27 @@ public class EventComingSoonFragment extends Fragment {
         PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,null,null,null,null,null);
-
+        final ArrayList<Event> eventArrayList = new ArrayList<>();
         try{
-            final ArrayList<Event> eventArrayList = new ArrayList<>();
+
             int idColumnIndex = cursor.getColumnIndex(Contract.EventEntry._ID);
             int nameColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TITLE);
+            int startColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME);
+            int endColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_ENDTIME);
             while(cursor.moveToNext()){
                int currentId = cursor.getInt(idColumnIndex);
                 String currentTitle = cursor.getString(nameColumnIndex);
-                eventArrayList.add(new Event(currentTitle,currentId));
-                EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
-                ListView listView = (ListView) rootView.findViewById(R.id.comingsoon_list);
-                listView.setAdapter(adapter);
+                long start_time = cursor.getLong(startColumnIndex);
+                long end_time = cursor.getLong(endColumnIndex);
+                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+                eventArrayList.add(new Event(currentTitle,formatter.format(start_time),formatter.format(end_time),currentId));
             }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
+            EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
+            ListView listView = (ListView) rootView.findViewById(R.id.comingsoon_list);
+            listView.setAdapter(adapter);
             cursor.close();
         }
         return rootView;
