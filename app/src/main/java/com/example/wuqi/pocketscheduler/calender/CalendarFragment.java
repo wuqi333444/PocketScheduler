@@ -86,37 +86,46 @@ public class CalendarFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
         final CalendarView cv = (CalendarView) rootView.findViewById(R.id.calendarView);
         //final SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+        long today = cv.getDate();
+        //
+        showEvents(rootView,today);
+
+//
+//        PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
+//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+//        Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,null,null,null,null,null);
+//        final ArrayList<Event> eventArrayList = new ArrayList<>();
+//        try{
+//
+//            int idColumnIndex = cursor.getColumnIndex(Contract.EventEntry._ID);
+//            int nameColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TITLE);
+//            int startColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME);
+//            int endColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_ENDTIME);
+//            while(cursor.moveToNext()){
+//                int currentId = cursor.getInt(idColumnIndex);
+//                String currentTitle = cursor.getString(nameColumnIndex);
+//                long start_time = cursor.getLong(startColumnIndex);
+//                long end_time = cursor.getLong(endColumnIndex);
+//                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+//                eventArrayList.add(new Event(currentTitle,formatter.format(start_time),formatter.format(end_time),currentId));
+//            }
+//        } finally {
+//            // Always close the cursor when you're done reading from it. This releases all its
+//            // resources and makes it invalid.
+//            final EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
+//            final ListView listView = (ListView) rootView.findViewById(R.id.id_eventlist);
+//            listView.setAdapter(adapter);
+//            cursor.close();
+//        }
+
+
+
+
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
-                final SQLiteDatabase db = mDbHelper.getReadableDatabase();
-                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
-                long tmp_start = TimeConvertUtils.dateToLongConverter(year,month,dayOfMonth,0,0);
-                long tmp_end = TimeConvertUtils.dateToLongConverter(year,month,dayOfMonth,24,0);
-                //query the data at the selected day.
-                Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,Contract.EventEntry.COLUMN_STARTTIME + ">=? AND "+ Contract.EventEntry.COLUMN_ENDTIME + "<=?",new String[]{Long.toString(tmp_start),Long.toString(tmp_end)},null,null,null);
-                final ArrayList<Event> eventArrayList = new ArrayList<>();
-
-                try{
-                    int idColumnIndex = cursor.getColumnIndex(Contract.EventEntry._ID);
-                    int nameColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TITLE);
-                    int startColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME);
-                    int endColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_ENDTIME);
-                    while(cursor.moveToNext()){
-                        int currentId = cursor.getInt(idColumnIndex);
-                        String currentTitle = cursor.getString(nameColumnIndex);
-                        long start_time = cursor.getLong(startColumnIndex);
-                        long end_time = cursor.getLong(endColumnIndex);
-                        eventArrayList.add(new Event(currentTitle,formatter.format(start_time),formatter.format(end_time),currentId));
-                    }
-                } finally {
-                    EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
-                    ListView listView = (ListView) rootView.findViewById(R.id.id_eventlist);
-//                    System.out.println(Boolean.toString(listView == null));
-                    listView.setAdapter(adapter);
-                    cursor.close();
-                }
+                //System.out.println(Integer.toString(year) + " " + Integer.toString(month) + " " + Integer.toString(dayOfMonth));
+                showEvents(rootView,year,month,dayOfMonth);
             }
         });
         return rootView;
@@ -159,5 +168,67 @@ public class CalendarFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private void showEvents(View rootView,int year, int month, int dayOfMonth){
+        PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
+        final SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+        long tmp_start = TimeConvertUtils.dateToLongConverter(year,month,dayOfMonth,0,0);
+        long tmp_end = TimeConvertUtils.dateToLongConverter(year,month,dayOfMonth,24,0);
+        //query the data at the selected day.
+        Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,Contract.EventEntry.COLUMN_STARTTIME + ">=? AND "+ Contract.EventEntry.COLUMN_ENDTIME + "<=?",new String[]{Long.toString(tmp_start),Long.toString(tmp_end)},null,null,null);
+        final ArrayList<Event> eventArrayList = new ArrayList<>();
+        try{
+            int idColumnIndex = cursor.getColumnIndex(Contract.EventEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TITLE);
+            int startColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME);
+            int endColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_ENDTIME);
+            while(cursor.moveToNext()){
+                int currentId = cursor.getInt(idColumnIndex);
+                String currentTitle = cursor.getString(nameColumnIndex);
+                long start_time = cursor.getLong(startColumnIndex);
+                long end_time = cursor.getLong(endColumnIndex);
+                eventArrayList.add(new Event(currentTitle,formatter.format(start_time),formatter.format(end_time),currentId));
+            }
+        } finally {
+            EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
+            ListView listView = (ListView) rootView.findViewById(R.id.id_eventlist);
+//                    System.out.println(Boolean.toString(listView == null));
+            listView.setAdapter(adapter);
+            cursor.close();
+        }
+    }
+    private void showEvents(View rootView,long today){
+        PocketDBHelper mDbHelper = new PocketDBHelper(getActivity());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        int year = TimeConvertUtils.getYearConverter(today);
+        int month = TimeConvertUtils.getMonthConverter(today);
+        int dayOfMonth = TimeConvertUtils.getDayConverter(today);
+        long tmp_start = TimeConvertUtils.dateToLongConverter(year,month,dayOfMonth,0,0);
+        long tmp_end = TimeConvertUtils.dateToLongConverter(year,month,dayOfMonth,24,0);
+        Cursor cursor = db.query(Contract.EventEntry.TABLE_NAME,null,Contract.EventEntry.COLUMN_STARTTIME + ">=? AND "+ Contract.EventEntry.COLUMN_ENDTIME + "<=?",new String[]{Long.toString(tmp_start),Long.toString(tmp_end)},null,null,null);
+        final ArrayList<Event> eventArrayList = new ArrayList<>();
+        try{
+
+            int idColumnIndex = cursor.getColumnIndex(Contract.EventEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_TITLE);
+            int startColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_STARTTIME);
+            int endColumnIndex = cursor.getColumnIndex(Contract.EventEntry.COLUMN_ENDTIME);
+            while(cursor.moveToNext()){
+                int currentId = cursor.getInt(idColumnIndex);
+                String currentTitle = cursor.getString(nameColumnIndex);
+                long start_time = cursor.getLong(startColumnIndex);
+                long end_time = cursor.getLong(endColumnIndex);
+                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+                eventArrayList.add(new Event(currentTitle,formatter.format(start_time),formatter.format(end_time),currentId));
+            }
+        } finally {
+            // Always close the cursor when you're done reading from it. This releases all its
+            // resources and makes it invalid.
+            final EventAdapter adapter = new EventAdapter(getActivity(), eventArrayList);
+            final ListView listView = (ListView) rootView.findViewById(R.id.id_eventlist);
+            listView.setAdapter(adapter);
+            cursor.close();
+        }
     }
 }

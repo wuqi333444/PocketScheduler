@@ -25,4 +25,20 @@ public class TimeConvertUtils {
         int minuteVal = Integer.valueOf(minute);
         return dateToLongConverter(yearVal,monthVal,dayVal,hourVal,minuteVal);
     }
+    public static int getYearConverter(long timeStamp){
+        Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(timeStamp);
+        return c.get(Calendar.YEAR);
+    }
+    //Pay attention to the month. If the actual month is August, the return value is 7.
+    public static int getMonthConverter(long timeStamp){
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(timeStamp);
+        return c.get(Calendar.MONTH);
+    }
+    public static int getDayConverter(long timeStamp){
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(timeStamp);
+        return c.get(Calendar.DAY_OF_MONTH);
+    }
 }

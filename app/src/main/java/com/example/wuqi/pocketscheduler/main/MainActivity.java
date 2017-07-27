@@ -44,6 +44,7 @@ import com.example.wuqi.pocketscheduler.reminder.ReminderService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import static com.example.wuqi.pocketscheduler.R.id.fragment_events;
 import static com.example.wuqi.pocketscheduler.R.id.ra;
 
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     private LinearLayout mDrawerList;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private int CurrentFragment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
             mCalendar = new CalendarFragment();
         }
         // 使用当前Fragment的布局替代id_content的控件
-        transaction.replace(R.id.id_content, mCalendar);
+        transaction.replace(R.id.id_content, mCalendar,"calendar_fragment");
 
         transaction.addToBackStack(null);
         // 事务提交
@@ -152,37 +154,38 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         switch (tabPosition)
         {
             case 0 :
-
+                        CurrentFragment = 0;
                         if (mCalendar == null)
                         {
                             mCalendar = new CalendarFragment();
                         }
                         // 使用当前Fragment的布局替代id_content的控件
-                        transaction.replace(R.id.id_content, mCalendar);
+                        transaction.replace(R.id.id_content, mCalendar,"calendar_fragment");
+                        //transaction.add(mCalendar,"calendar");
                  transaction.addToBackStack(null);
                 // 事务提交
                 transaction.commit();
                 break;
             case 1 :
-
+                CurrentFragment = 1;
                 if (mProject == null)
                 {
                     mProject = new ProjectFragment();
                 }
                 // 使用当前Fragment的布局替代id_content的控件
-                transaction.replace(R.id.id_content, mProject);
-
+                transaction.replace(R.id.id_content, mProject,"project_fragment");
                 transaction.addToBackStack(null);
                 // 事务提交
                 transaction.commit();
                 break;
             case 2:
+                CurrentFragment = 2;
                 if (mEvents == null)
                 {
                     mEvents = new EventsFragment();
                 }
                 // 使用当前Fragment的布局替代id_content的控件
-                transaction.replace(R.id.id_content, mEvents);
+                transaction.replace(R.id.id_content, mEvents,"events_fragment");
 
                 transaction.addToBackStack(null);
                 // 事务提交
@@ -202,5 +205,35 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 setCurrentTabFragment(0);//0 is the calendar fragment
             }
         });
+    }
+    //onResume works when activity starts and resume from pause.
+    public void onResume(){
+        super.onResume();
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        // 开启Fragment事务
+        FragmentTransaction transaction = fm.beginTransaction();
+        switch(CurrentFragment){
+            case 0:
+                mCalendar = new CalendarFragment();
+                transaction.replace(R.id.id_content, mCalendar,"calendar_fragment");
+                break;
+            case 1:
+                mProject = new ProjectFragment();
+                transaction.replace(R.id.id_content, mProject,"project_fragment");
+                break;
+            case 2:
+                mEvents = new EventsFragment();
+                transaction.replace(R.id.id_content, mEvents,"events_fragment");
+                break;
+        }
+        transaction.addToBackStack(null);
+        transaction.commit();
+//        Fragment frg = this.getSupportFragmentManager().findFragmentByTag("calendar_fragment");
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        //System.out.println("fragment is null" + Boolean.toString(frg == null));
+//        transaction.setAllowOptimization(false);
+//        transaction.detach(frg).attach(frg).commitAllowingStateLoss();
+
+
     }
 }
